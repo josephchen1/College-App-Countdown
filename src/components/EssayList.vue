@@ -15,6 +15,11 @@
               &times;
           </div>
       </div>
+      <div>
+          <div class="count-left">
+              {{ remaining }} items left
+          </div>
+      </div>
   </div>
 </template>
 
@@ -41,6 +46,11 @@ export default {
       ]
     }
   },
+  computed: {
+    remaining () {
+      return this.essays.filter(essay => !essay.completed).length
+    }
+  },
   directives: {
     focus: {
       inserted: function (el) {
@@ -64,9 +74,13 @@ export default {
       this.idForEssay++
     },
     editEssay (essay) {
+      this.beforeEditCache = essay.title
       essay.editing = true
     },
     doneEdit (essay) {
+      if (essay.title.trim().length === 0) {
+        essay.title = this.beforeEditCache
+      }
       essay.editing = false
     },
     removeEssay (index) {
@@ -97,6 +111,16 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .count-left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 16px;
+        border-top: 1px solid lightgrey;
+        padding-top: 14px;
+        margin-bottom: 14px;
     }
 
     .remove-item {
