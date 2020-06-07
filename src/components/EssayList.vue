@@ -9,9 +9,7 @@
     />
     <div v-for="(essay, index) in essays" :key="essay.id" class="essay-item">
       <div class="essay-item-left">
-        <div>
-          <Dropdown status="Ready to Start" :items="statuses" />
-        </div>
+        <Dropdown class="status" title="Ready to Start" :items="statuses" />
         <input type="checkbox" v-model="essay.completed" />
         <div
           v-if="!essay.editing"
@@ -51,14 +49,34 @@ export default {
         {
           id: 1,
           title: 'Finish Vue Screencast',
+          readytostart: true,
+          inprogress: false,
+          inreview: false,
           completed: false,
           editing: false
         },
         {
           id: 2,
           title: 'Take over world',
+          readytostart: true,
+          inprogress: false,
+          inreview: false,
           completed: false,
           editing: false
+        }
+      ],
+      statuses: [
+        {
+          title: 'Ready to Start'
+        },
+        {
+          title: 'In Progress'
+        },
+        {
+          title: 'In Review'
+        },
+        {
+          title: 'Completed'
         }
       ]
     }
@@ -66,6 +84,18 @@ export default {
   computed: {
     remaining () {
       return this.essays.filter(essay => !essay.completed).length
+    },
+    completed () {
+      return this.essays.filter(essay => !essay.completed).length
+    },
+    readytostart () {
+      return this.essays.filter(essay => essay.readytostart).length
+    },
+    inprogress () {
+      return this.essays.filter(essay => essay.inprogress).length
+    },
+    inreview () {
+      return this.essays.filter(essay => essay.inreview).length
     }
   },
   directives: {
@@ -164,5 +194,12 @@ export default {
   &:focus {
     outline: none;
   }
+}
+
+.status {
+    width: 110px;
+    text-align: center;
+    font-size: 16px;
+    background-color: pink;
 }
 </style>
