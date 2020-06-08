@@ -7,48 +7,43 @@
       v-model="newEssay"
       @keyup.enter="addEssay"
     />
-    <div v-for="(essay, index) in essaysFiltered" :key="essay.id" class="essay-item">
-      <div class="essay-item-left">
-        <Dropdown class="status" title="Ready to Start" :items="statuses" />
-        <input type="checkbox" v-model="essay.completed" />
-        <div
-          v-if="!essay.editing"
-          @dblclick="editEssay(essay)"
-          class="essay-item-label"
-        >{{essay.title }}</div>
-        <input
-          v-else
-          class="essay-item-edit"
-          type="text"
-          v-model="essay.title"
-          @blur="doneEdit(essay)"
-          @keyup.enter="doneEdit(essay)"
-          v-focus
-        />
+    <div class="extra-container">
+      <div class="filter-bar">
+        <button :class="{ active: filter == 'all' }" @click="changeFilter(0)">All</button>
+        <button :class="{ active: filter == 'active' }" @click="changeFilter(1)">Active</button>
+        <button :class="{ active: filter == 'completed' }" @click="changeFilter(2)">Completed</button>
       </div>
-      <div class="remove-item" @click="removeEssay(index)">&times;</div>
     </div>
+    <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
+      <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"
+      @removedEssay="removeEssay">
+        <!-- <div class="essay-item-left">
+          <Dropdown class="status" title="Ready to Start" :items="statuses" />
+          <input type="checkbox" v-model="essay.completed" />
+          <div v-if="!essay.editing" @dblclick="editEssay(essay)" class="essay-item-label">
+            {{essay.title }}
+          </div>
+            <input v-else class="essay-item-edit" type="text" v-model="essay.title" @blur="doneEdit(essay)" @keyup.enter="doneEdit(essay)" v-focus/>
+          </div>
+          <div class="remove-item" @click="removeEssay(index)">
+            &times;
+        </div> -->
+      </essay>
+    </transition-group>
+
     <div class="extra-container">
       <div class="count-left">{{ remaining }} items left</div>
     </div>
-    <div class="extra-container">
-      <div>
-          <button :class="{ active: filter == 'all' }" @click="changeFilter(0)">All</button>
-          <button :class="{ active: filter == 'active' }" @click="changeFilter(1)">Active</button>
-          <button :class="{ active: filter == 'completed' }" @click="changeFilter(2)">Completed</button>
-      </div>
-    </div>
   </div>
+
 </template>
 
 <script>
-import Dropdown from './Dropdown.vue'
-// import Essay from './Essay.vue'
+import Essay from './Essay.vue'
 export default {
   name: 'essay-list',
   components: {
-    Dropdown
-    // Essay
+    Essay
   },
   data () {
     return {
@@ -171,6 +166,9 @@ export default {
 </script>
 
 <style lang="scss">
+
+ @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css");
+
 #checkbox {
   padding: 50px;
 }
@@ -191,6 +189,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  animation-duration: 0.3s;
 }
 
 .count-left {
@@ -218,15 +217,24 @@ export default {
 .essay-item-edit {
   font-size: 20px;
   color: #2c3e50;
-  margin-left: 12px;
-  width: 100%;
-  padding: 10px;
+//   margin-left: 12px;
+//   width: 100%;
+//   padding: 10px;
   border: 1px solid #ccc;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
 
   &:focus {
     outline: none;
   }
+}
+
+button {
+  border-radius: 12px;
+  padding: 10px;
+  outline-width: 0px;
+  width: 100px;
+  margin-right: 10px;
+  text-align: center;
 }
 
 .status {
@@ -236,8 +244,22 @@ export default {
   background-color: pink;
 }
 
-.active {
-  background: lightgreen;
+.filter-bar {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: left;
 }
 
+.active {
+  background: lightgreen;
+  outline-width: 0px;
+}
+
+//CSS Transitions
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 </style>

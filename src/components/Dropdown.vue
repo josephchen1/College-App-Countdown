@@ -1,5 +1,5 @@
 <template>
-  <div class="status-item" id='4' @click="isOpen = !isOpen">
+  <div class="status-item" id='4' @mousedown="isOpen = !isOpen" @mouseleave="blur()">
     <a href="#">
       {{ title }}
     </a>
@@ -10,7 +10,7 @@
         <div
         v-for="(item, i) in items"
         :key="i"
-        @click="test(item)"
+        @mousedown="test(item)"
         class="status-choice">
           <a> {{ item.title }}</a>
         </div>
@@ -31,6 +31,9 @@ export default {
   methods: {
     test (a) {
       this.title = a.title
+    },
+    blur () {
+      this.isOpen = false
     }
   }
 }
