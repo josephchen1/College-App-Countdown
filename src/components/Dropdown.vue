@@ -1,5 +1,5 @@
 <template>
-  <div class="status-item" id='4' @mousedown="isOpen = !isOpen" @mouseleave="blur()">
+  <div class="status-item" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
     <a href="#">
       {{ title }}
     </a>
@@ -13,7 +13,7 @@
         @mousedown="test(item)"
         class="status-choice">
           <a> {{ item.title }}</a>
-        </div>
+        </div>  
       </div>
     </transition>
   </div>
@@ -28,9 +28,20 @@ export default {
       isOpen: false
     }
   },
+  created () {
+  },
   methods: {
     test (a) {
       this.title = a.title
+      if (a.id === '0') {
+        this.$eventBus.$emit('readyToStartStatus')
+      } else if (a.id === '1') {
+        this.$eventBus.$emit('inProgressStatus')
+      } else if (a.id === '2') {
+        this.$eventBus.$emit('inReviewStatus')
+      } else if (a.id === '3') {
+        this.$eventBus.$emit('completedStatus')
+      }
     },
     blur () {
       this.isOpen = false

@@ -3,6 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import store from './store'
 
+Vue.prototype.$eventBus = new Vue()
+
 Vue.config.productionTip = false
 
 new Vue({

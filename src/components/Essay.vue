@@ -1,7 +1,7 @@
 <template>
   <div class="essay-item">
     <div class="essay-item-left">
-      <Dropdown class="status" title="Ready to Start" :items="statuses" />
+      <Dropdown class="status" title="Ready to Start" :items="statuses" @/>
       <input type="checkbox" v-model="completed" />
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
@@ -42,28 +42,41 @@ export default {
     return {
       id: this.essay.id,
       title: this.essay.title,
+      readyToStart: this.essay.readytostart,
+      inProgress: this.essay.inprogress,
+      inReview: this.essay.inreview,
       completed: this.essay.completed,
       editing: this.essay.editing,
       beforeEditCache: '',
       statuses: [
         {
-          title: 'Ready to Start'
+          title: 'Ready to Start',
+          id: '0'
         },
         {
-          title: 'In Progress'
+          title: 'In Progress',
+          id: '1'
         },
         {
-          title: 'In Review'
+          title: 'In Review',
+          id: '2'
         },
         {
-          title: 'Completed'
+          title: 'Completed',
+          id: '3'
         }
       ]
     }
   },
+  created () {
+    this.$eventBus.$on('readyToStartStatus', this.readyToStartStatus)
+    this.$eventBus.$on('inProgressStatus', this.inProgressStatus)
+    this.$eventBus.$on('inReviewStatus', this.inReviewStatus)
+    this.$eventBus.$on('completedStatus', this.completedStatus)
+  },
   methods: {
     removeEssay (index) {
-      this.$emit('removedEssay', index)
+      this.$eventBus.$emit('removedEssay', index)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -74,7 +87,7 @@ export default {
         this.title = this.beforeEditCache
       }
       this.editing = false
-      this.$emit('finishedEdit', {
+      this.$eventBus.$emit('finishedEdit', {
         index: this.index,
         essay: {
           id: this.id,
@@ -83,6 +96,30 @@ export default {
           editing: this.editing
         }
       })
+    },
+    readyToStartStatus () {
+      this.essay.readytostart = true
+      this.essay.inprogress = false
+      this.essay.inreview = false
+      this.essay.completed = false
+    },
+    inProgressStatus () {
+      this.essay.readytostart = false
+      this.essay.inprogress = true
+      this.essay.inreview = false
+      this.essay.completed = false
+    },
+    inReviewStatus () {
+      this.essay.readytostart = false
+      this.essay.inprogress = false
+      this.essay.inreview = true
+      this.essay.completed = false
+    },
+    completedStatus () {
+      this.essay.readytostart = false
+      this.essay.inprogress = false
+      this.essay.inreview = false
+      this.essay.completed = true
     }
   }
 }

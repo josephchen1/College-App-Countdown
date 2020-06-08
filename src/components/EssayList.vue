@@ -10,13 +10,15 @@
     <div class="extra-container">
       <div class="filter-bar">
         <button :class="{ active: filter == 'all' }" @click="changeFilter(0)">All</button>
-        <button :class="{ active: filter == 'active' }" @click="changeFilter(1)">Active</button>
-        <button :class="{ active: filter == 'completed' }" @click="changeFilter(2)">Completed</button>
+        <button :class="{ active: filter == 'ready' }" @click="changeFilter(1)">Ready to Start</button>
+        <button :class="{ active: filter == 'progress' }" @click="changeFilter(2)">In Progress</button>
+        <button :class="{ active: filter == 'review' }" @click="changeFilter(3)">In Review</button>
+        <button :class="{ active: filter == 'completed' }" @click="changeFilter(4)">Completed</button>
       </div>
     </div>
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
       <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"
-      @removedEssay="removeEssay" @finishedEdit="finishedEdit">
+      >
         <!-- <div class="essay-item-left">
           <Dropdown class="status" title="Ready to Start" :items="statuses" />
           <input type="checkbox" v-model="essay.completed" />
@@ -73,19 +75,28 @@ export default {
       ],
       statuses: [
         {
-          title: 'Ready to Start'
+          title: 'Ready to Start',
+          id: '0'
         },
         {
-          title: 'In Progress'
+          title: 'In Progress',
+          id: '1'
         },
         {
-          title: 'In Review'
+          title: 'In Review',
+          id: '2'
         },
         {
-          title: 'Completed'
+          title: 'Completed',
+          id: '3'
         }
       ]
     }
+  },
+  created () {
+    this.$eventBus.$on('removedEssay', (index) => this.removeEssay(index))
+    this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
+    this.$eventBus.$on(this.inProgress)
   },
   computed: {
     remaining () {
@@ -106,8 +117,12 @@ export default {
     essaysFiltered () {
       if (this.filter === 'all') {
         return this.essays
-      } else if (this.filter === 'active') {
-        return this.essays.filter(essay => !essay.completed)
+      } else if (this.filter === 'ready') {
+        return this.essays.filter(essay => essay.readytostart)
+      } else if (this.filter === 'progress') {
+        return this.essays.filter(essay => essay.inprogress)
+      } else if (this.filter === 'review') {
+        return this.essays.filter(essay => essay.inreview)
       } else if (this.filter === 'completed') {
         return this.essays.filter(essay => essay.completed)
       } else {
@@ -126,14 +141,44 @@ export default {
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
+    readyToStart (essay) {
+      essay.readytostart = true
+      essay.inprogress = false
+      essay.inreview = false
+      essay.completed = false
+    },
+    inProgress (essay) {
+      essay.readytostart = false
+      essay.inprogress = true
+      essay.inreview = false
+      essay.completed = false
+    },
+    inReview (essay) {
+      essay.readytostart = false
+      essay.inprogress = false
+      essay.inreview = true
+      essay.completed = false
+    },
+    completion (essay) {
+      essay.readytostart = false
+      essay.inprogress = false
+      essay.inreview = false
+      essay.completed = true
+    },
     changeFilter (id) {
       if (id === 0) {
         this.filter = 'all'
       }
       if (id === 1) {
-        this.filter = 'active'
+        this.filter = 'ready'
       }
       if (id === 2) {
+        this.filter = 'progress'
+      }
+      if (id === 3) {
+        this.filter = 'review'
+      }
+      if (id === 4) {
         this.filter = 'completed'
       }
     },
@@ -144,6 +189,9 @@ export default {
       this.essays.push({
         id: this.idForEssay,
         title: this.newEssay,
+        readytostart: true,
+        inprogress: false,
+        inreview: false,
         completed: false,
         editing: false
       })
