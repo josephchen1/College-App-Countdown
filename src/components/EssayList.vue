@@ -16,7 +16,7 @@
     </div>
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
       <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"
-      @removedEssay="removeEssay">
+      @removedEssay="removeEssay" @finishedEdit="finishedEdit">
         <!-- <div class="essay-item-left">
           <Dropdown class="status" title="Ready to Start" :items="statuses" />
           <input type="checkbox" v-model="essay.completed" />
@@ -123,6 +123,9 @@ export default {
     }
   },
   methods: {
+    finishedEdit (data) {
+      this.essays.splice(data.index, 1, data.essay)
+    },
     changeFilter (id) {
       if (id === 0) {
         this.filter = 'all'
