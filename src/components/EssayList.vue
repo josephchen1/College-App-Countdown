@@ -96,7 +96,10 @@ export default {
   created () {
     this.$eventBus.$on('removedEssay', (index) => this.removeEssay(index))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
-    this.$eventBus.$on(this.inProgress)
+    this.$eventBus.$on('readyToStartStatus', (taskID) => this.readyToStartStatus(taskID))
+    this.$eventBus.$on('inProgressStatus', (taskID) => this.inProgressStatus(taskID))
+    this.$eventBus.$on('inReviewStatus', (taskID) => this.inReviewStatus(taskID))
+    this.$eventBus.$on('completedStatus', (taskID) => this.completedStatus(taskID))
   },
   computed: {
     remaining () {
@@ -211,6 +214,14 @@ export default {
     },
     removeEssay (index) {
       this.essays.splice(index, 1)
+    },
+    readyToStartStatus (taskID) {
+    },
+    inProgressStatus (taskID) {
+    },
+    inReviewStatus (taskID) {
+    },
+    completedStatus (taskID) {
     }
   }
 }
