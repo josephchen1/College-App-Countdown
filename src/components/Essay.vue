@@ -1,7 +1,7 @@
 <template>
   <div class="essay-item">
     <div class="essay-item-left">
-      <Dropdown class="status" title="Ready to Start" :items="statuses" @/>
+      <Dropdown class="status" title="Ready to Start" :items="statuses"/>
       <input type="checkbox" v-model="completed" />
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
@@ -69,7 +69,7 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on('readyToStartStatus', this.readyToStartStatus)
+    this.$eventBus.$on('readyToStartStatus', this.test)
     this.$eventBus.$on('inProgressStatus', this.inProgressStatus)
     this.$eventBus.$on('inReviewStatus', this.inReviewStatus)
     this.$eventBus.$on('completedStatus', this.completedStatus)

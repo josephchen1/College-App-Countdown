@@ -13,7 +13,7 @@
         @mousedown="test(item)"
         class="status-choice">
           <a> {{ item.title }}</a>
-        </div>  
+        </div>
       </div>
     </transition>
   </div>
