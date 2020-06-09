@@ -69,10 +69,7 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on('readyToStartStatus', this.readyToStartStatus)
-    this.$eventBus.$on('inProgressStatus', this.inProgressStatus)
-    this.$eventBus.$on('inReviewStatus', this.inReviewStatus)
-    this.$eventBus.$on('completedStatus', this.completedStatus)
+    this.$eventBus.$on(this.inProgress)
   },
   methods: {
     removeEssay (index) {
@@ -96,30 +93,6 @@ export default {
           editing: this.editing
         }
       })
-    },
-    readyToStartStatus () {
-      this.essay.readytostart = true
-      this.essay.inprogress = false
-      this.essay.inreview = false
-      this.essay.completed = false
-    },
-    inProgressStatus () {
-      this.essay.readytostart = false
-      this.essay.inprogress = true
-      this.essay.inreview = false
-      this.essay.completed = false
-    },
-    inReviewStatus () {
-      this.essay.readytostart = false
-      this.essay.inprogress = false
-      this.essay.inreview = true
-      this.essay.completed = false
-    },
-    completedStatus () {
-      this.essay.readytostart = false
-      this.essay.inprogress = false
-      this.essay.inreview = false
-      this.essay.completed = true
     }
   }
 }
