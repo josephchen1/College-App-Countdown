@@ -42,6 +42,7 @@
 
 <script>
 import Essay from './Essay.vue'
+let indexOfTargetEssay
 export default {
   name: 'essay-list',
   components: {
@@ -216,12 +217,32 @@ export default {
       this.essays.splice(index, 1)
     },
     readyToStartStatus (taskID) {
+      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
+      this.essays[indexOfTargetEssay].readytostart = true
+      this.essays[indexOfTargetEssay].inprogress = false
+      this.essays[indexOfTargetEssay].inreview = false
+      this.essays[indexOfTargetEssay].completed = false
     },
     inProgressStatus (taskID) {
+      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
+      this.essays[indexOfTargetEssay].readytostart = false
+      this.essays[indexOfTargetEssay].inprogress = true
+      this.essays[indexOfTargetEssay].inreview = false
+      this.essays[indexOfTargetEssay].completed = false
     },
     inReviewStatus (taskID) {
+      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
+      this.essays[indexOfTargetEssay].readytostart = false
+      this.essays[indexOfTargetEssay].inprogress = false
+      this.essays[indexOfTargetEssay].inreview = true
+      this.essays[indexOfTargetEssay].completed = false
     },
     completedStatus (taskID) {
+      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
+      this.essays[indexOfTargetEssay].readytostart = false
+      this.essays[indexOfTargetEssay].inprogress = false
+      this.essays[indexOfTargetEssay].inreview = false
+      this.essays[indexOfTargetEssay].completed = true
     }
   }
 }
