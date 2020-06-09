@@ -8,11 +8,11 @@
       class="sub-menu"
       v-if="isOpen">
         <div
-        v-for="(item, i) in items"
+        v-for="(dropdownItem, i) in items"
         :key="i"
-        @mousedown="test(item)"
+        @mousedown="applyDropdownProperty(dropdownItem)"
         class="status-choice">
-          <a> {{ item.title }}</a>
+          <a> {{ dropdownItem.title }}</a>
         </div>
       </div>
     </transition>
@@ -31,16 +31,12 @@ export default {
   created () {
   },
   methods: {
-    test (a) {
-      this.title = a.title
-      if (a.id === '0') {
-        this.$eventBus.$emit('readyToStartStatus')
-      } else if (a.id === '1') {
-        this.$eventBus.$emit('inProgressStatus')
-      } else if (a.id === '2') {
-        this.$eventBus.$emit('inReviewStatus')
-      } else if (a.id === '3') {
-        this.$eventBus.$emit('completedStatus')
+    applyDropdownProperty (dropdownObject) {
+      this.title = dropdownObject.title
+      if (dropdownObject.id === '0') {
+      } else if (dropdownObject.id === '1') {
+      } else if (dropdownObject.id === '2') {
+      } else if (dropdownObject.id === '3') {
       }
     },
     blur () {
