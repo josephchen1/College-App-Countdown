@@ -53,24 +53,6 @@ export default {
           status: 1,
           editing: false
         }
-      ],
-      statuses: [
-        {
-          title: 'Ready to Start',
-          id: '0'
-        },
-        {
-          title: 'In Progress',
-          id: '1'
-        },
-        {
-          title: 'In Review',
-          id: '2'
-        },
-        {
-          title: 'Completed',
-          id: '3'
-        }
       ]
     }
   },

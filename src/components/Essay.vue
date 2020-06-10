@@ -48,24 +48,12 @@ export default {
       completed: this.essay.completed,
       editing: this.essay.editing,
       beforeEditCache: '',
-      statuses: [
-        {
-          title: 'Ready to Start',
-          id: '0'
-        },
-        {
-          title: 'In Progress',
-          id: '1'
-        },
-        {
-          title: 'In Review',
-          id: '2'
-        },
-        {
-          title: 'Completed',
-          id: '3'
+      statusDictionary: {
+        1: 'Ready to Start',
+        2: 'In Progress',
+        3: 'In Review',
+        4: 'Completed'
         }
-      ]
     }
   },
   created () {
