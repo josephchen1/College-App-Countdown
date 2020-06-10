@@ -63,24 +63,21 @@ export default {
   },
   computed: {
     remaining () {
-      return this.essays.filter(essay => !essay.completed).length
+      /* Check Filter Type = 0 case (no filter) */
+      if (this.currentFilterType === 0) {
+        return this.essays.length
+      }
+      return this.essays.filter(essay => essay.status === this.currentFilterType && essay.status !== 4).length
     },
     completed () {
-      return this.essays.filter(essay => !essay.completed).length
-    },
-    readytostart () {
-      return this.essays.filter(essay => essay.readytostart).length
-    },
-    inprogress () {
-      return this.essays.filter(essay => essay.inprogress).length
-    },
-    inreview () {
-      return this.essays.filter(essay => essay.inreview).length
+      return this.essays.filter(essay => essay.completed).length
     },
     essaysFiltered () {
-      if (this.filter === 'all') {
+      /* Check Filter Type = 0 case (no filter) before applying filter */
+      if (this.currentFilterType === 0) {
         return this.essays
       }
+      return this.essays.filter(essay => essay.status === this.currentFilterType)
     }
   },
   directives: {
