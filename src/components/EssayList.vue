@@ -58,19 +58,13 @@ export default {
         {
           id: 1,
           title: 'Finish Vue Screencast',
-          readytostart: true,
-          inprogress: false,
-          inreview: false,
-          completed: false,
+          status: 1,
           editing: false
         },
         {
           id: 2,
           title: 'Take over world',
-          readytostart: true,
-          inprogress: false,
-          inreview: false,
-          completed: false,
+          status: 1,
           editing: false
         }
       ],
@@ -129,6 +123,9 @@ export default {
     }
   },
   methods: {
+    changeEssayListFilter (filterNumber) {
+      this.currentFilterType = filterNumber
+    },
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
