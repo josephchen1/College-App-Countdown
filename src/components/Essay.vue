@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     removeEssay (index) {
-      this.$eventBus.$emit('removedEssay', index)
+      this.$eventBus.$emit('removeEssay', index)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -74,8 +74,8 @@ export default {
         essay: {
           id: this.id,
           title: this.title,
-          completed: this.completed,
-          editing: this.editing
+          status: this.status,
+          editing: false
         }
       })
     }
