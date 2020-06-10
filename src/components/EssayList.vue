@@ -97,10 +97,7 @@ export default {
   created () {
     this.$eventBus.$on('removedEssay', (index) => this.removeEssay(index))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
-    this.$eventBus.$on('readyToStartStatus', (taskID) => this.readyToStartStatus(taskID))
-    this.$eventBus.$on('inProgressStatus', (taskID) => this.inProgressStatus(taskID))
-    this.$eventBus.$on('inReviewStatus', (taskID) => this.inReviewStatus(taskID))
-    this.$eventBus.$on('completedStatus', (taskID) => this.completedStatus(taskID))
+    this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
   },
   computed: {
     remaining () {
@@ -120,16 +117,6 @@ export default {
     },
     essaysFiltered () {
       if (this.filter === 'all') {
-        return this.essays
-      } else if (this.filter === 'ready') {
-        return this.essays.filter(essay => essay.readytostart)
-      } else if (this.filter === 'progress') {
-        return this.essays.filter(essay => essay.inprogress)
-      } else if (this.filter === 'review') {
-        return this.essays.filter(essay => essay.inreview)
-      } else if (this.filter === 'completed') {
-        return this.essays.filter(essay => essay.completed)
-      } else {
         return this.essays
       }
     }
@@ -193,10 +180,7 @@ export default {
       this.essays.push({
         id: this.idForEssay,
         title: this.newEssay,
-        readytostart: true,
-        inprogress: false,
-        inreview: false,
-        completed: false,
+        status: 1,
         editing: false
       })
 
