@@ -51,7 +51,7 @@ export default {
         2: 'In Progress',
         3: 'In Review',
         4: 'Completed'
-        }
+      }
     }
   },
   created () {
