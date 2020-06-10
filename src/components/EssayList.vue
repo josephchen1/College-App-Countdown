@@ -42,7 +42,6 @@
 
 <script>
 import Essay from './Essay.vue'
-let indexOfTargetEssay
 export default {
   name: 'essay-list',
   components: {
@@ -53,7 +52,7 @@ export default {
       newEssay: '',
       idForEssay: 3,
       beforeEditCache: '',
-      filter: 'all',
+      currentFilterType: 0,
       essays: [
         {
           id: 1,
@@ -89,7 +88,7 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on('removedEssay', (index) => this.removeEssay(index))
+    this.$eventBus.$on('removeEssay', (index) => this.removeEssay(index))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
     this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
   },
@@ -129,6 +128,7 @@ export default {
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
+    removeEssay (index) {
       this.essays.splice(index, 1)
     },
     addEssay () {
