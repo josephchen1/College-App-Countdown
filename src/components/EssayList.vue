@@ -17,20 +17,7 @@
       </div>
     </div>
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
-      <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"
-      >
-        <!-- <div class="essay-item-left">
-          <Dropdown class="status" title="Ready to Start" :items="statuses" />
-          <input type="checkbox" v-model="essay.completed" />
-          <div v-if="!essay.editing" @dblclick="editEssay(essay)" class="essay-item-label">
-            {{essay.title }}
-          </div>
-            <input v-else class="essay-item-edit" type="text" v-model="essay.title" @blur="doneEdit(essay)" @keyup.enter="doneEdit(essay)" v-focus/>
-          </div>
-          <div class="remove-item" @click="removeEssay(index)">
-            &times;
-        </div> -->
-      </essay>
+      <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"></essay>
     </transition-group>
 
     <div class="extra-container">
