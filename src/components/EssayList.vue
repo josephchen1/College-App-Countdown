@@ -187,46 +187,8 @@ export default {
       this.newEssay = ''
       this.idForEssay++
     },
-    editEssay (essay) {
-      this.beforeEditCache = essay.title
-      essay.editing = true
-    },
-    doneEdit (essay) {
-      if (essay.title.trim().length === 0) {
-        essay.title = this.beforeEditCache
-      }
-      essay.editing = false
-    },
-    removeEssay (index) {
-      this.essays.splice(index, 1)
-    },
-    readyToStartStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = true
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    inProgressStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = true
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    inReviewStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = true
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    completedStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = true
+    changeStatus (correspondingTaskID, statusNumber) {
+      this.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
     }
   }
 }
