@@ -132,46 +132,7 @@ export default {
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
-    readyToStart (essay) {
-      essay.readytostart = true
-      essay.inprogress = false
-      essay.inreview = false
-      essay.completed = false
-    },
-    inProgress (essay) {
-      essay.readytostart = false
-      essay.inprogress = true
-      essay.inreview = false
-      essay.completed = false
-    },
-    inReview (essay) {
-      essay.readytostart = false
-      essay.inprogress = false
-      essay.inreview = true
-      essay.completed = false
-    },
-    completion (essay) {
-      essay.readytostart = false
-      essay.inprogress = false
-      essay.inreview = false
-      essay.completed = true
-    },
-    changeFilter (id) {
-      if (id === 0) {
-        this.filter = 'all'
-      }
-      if (id === 1) {
-        this.filter = 'ready'
-      }
-      if (id === 2) {
-        this.filter = 'progress'
-      }
-      if (id === 3) {
-        this.filter = 'review'
-      }
-      if (id === 4) {
-        this.filter = 'completed'
-      }
+      this.essays.splice(index, 1)
     },
     addEssay () {
       if (this.newEssay.trim().length === 0) {
