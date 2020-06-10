@@ -4,15 +4,13 @@
       {{ title }}
     </a>
     <transition name="fade" appear>
-      <div
-      class="sub-menu"
+      <div class="sub-menu"
       v-if="isOpen">
-        <div
-        v-for="(dropdownItem, i) in items"
-        :key="i"
-        @mousedown="applyDropdownProperty(dropdownItem)"
+        <div v-for="(dropdownTitle, dropdownKey) in statusDictionary"
+        :key="parseInt(dropdownKey)"
+        @mousedown="applyDropdownProperty(parseInt(dropdownKey))"
         class="status-choice">
-          <a> {{ dropdownItem.title }}</a>
+          <a> {{ dropdownTitle }} </a>
         </div>
       </div>
     </transition>
