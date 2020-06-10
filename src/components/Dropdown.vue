@@ -4,15 +4,13 @@
       {{ title }}
     </a>
     <transition name="fade" appear>
-      <div
-      class="sub-menu"
+      <div class="sub-menu"
       v-if="isOpen">
-        <div
-        v-for="(dropdownItem, i) in items"
-        :key="i"
-        @mousedown="applyDropdownProperty(dropdownItem)"
+        <div v-for="(dropdownTitle, dropdownKey) in statusDictionary"
+        :key="parseInt(dropdownKey)"
+        @mousedown="applyDropdownProperty(parseInt(dropdownKey))"
         class="status-choice">
-          <a> {{ dropdownItem.title }}</a>
+          <a> {{ dropdownTitle }} </a>
         </div>
       </div>
     </transition>
@@ -22,7 +20,7 @@
 <script>
 export default {
   name: 'dropdown',
-  props: ['title', 'items', 'correspondingTaskID'],
+  props: ['title', 'statusDictionary', 'correspondingTaskID'],
   data () {
     return {
       isOpen: false
@@ -31,17 +29,9 @@ export default {
   created () {
   },
   methods: {
-    applyDropdownProperty (dropdownObject) {
-      this.title = dropdownObject.title
-      if (dropdownObject.id === '0') {
-        this.$eventBus.$emit('readyToStartStatus', this.correspondingTaskID)
-      } else if (dropdownObject.id === '1') {
-        this.$eventBus.$emit('inProgressStatus', this.correspondingTaskID)
-      } else if (dropdownObject.id === '2') {
-        this.$eventBus.$emit('inReviewStatus', this.correspondingTaskID)
-      } else if (dropdownObject.id === '3') {
-        this.$eventBus.$emit('completedStatus', this.correspondingTaskID)
-      }
+    applyDropdownProperty (dropdownKey) {
+      this.title = this.statusDictionary[dropdownKey]
+      this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
     },
     blur () {
       this.isOpen = false

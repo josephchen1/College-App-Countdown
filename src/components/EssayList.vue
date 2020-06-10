@@ -9,28 +9,15 @@
     />
     <div class="extra-container">
       <div class="filter-bar">
-        <button :class="{ active: filter == 'all' }" @click="changeFilter(0)">All</button>
-        <button :class="{ active: filter == 'ready' }" @click="changeFilter(1)">Ready to Start</button>
-        <button :class="{ active: filter == 'progress' }" @click="changeFilter(2)">In Progress</button>
-        <button :class="{ active: filter == 'review' }" @click="changeFilter(3)">In Review</button>
-        <button :class="{ active: filter == 'completed' }" @click="changeFilter(4)">Completed</button>
+        <button :class="{ active: currentFilterType == 0 }" @click="changeEssayListFilter(0)">All</button>
+        <button :class="{ active: currentFilterType == 1 }" @click="changeEssayListFilter(1)">Ready to Start</button>
+        <button :class="{ active: currentFilterType == 2 }" @click="changeEssayListFilter(2)">In Progress</button>
+        <button :class="{ active: currentFilterType == 3 }" @click="changeEssayListFilter(3)">In Review</button>
+        <button :class="{ active: currentFilterType == 4 }" @click="changeEssayListFilter(4)">Completed</button>
       </div>
     </div>
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
-      <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"
-      >
-        <!-- <div class="essay-item-left">
-          <Dropdown class="status" title="Ready to Start" :items="statuses" />
-          <input type="checkbox" v-model="essay.completed" />
-          <div v-if="!essay.editing" @dblclick="editEssay(essay)" class="essay-item-label">
-            {{essay.title }}
-          </div>
-            <input v-else class="essay-item-edit" type="text" v-model="essay.title" @blur="doneEdit(essay)" @keyup.enter="doneEdit(essay)" v-focus/>
-          </div>
-          <div class="remove-item" @click="removeEssay(index)">
-            &times;
-        </div> -->
-      </essay>
+      <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"></essay>
     </transition-group>
 
     <div class="extra-container">
@@ -42,7 +29,6 @@
 
 <script>
 import Essay from './Essay.vue'
-let indexOfTargetEssay
 export default {
   name: 'essay-list',
   components: {
@@ -53,85 +39,45 @@ export default {
       newEssay: '',
       idForEssay: 3,
       beforeEditCache: '',
-      filter: 'all',
+      currentFilterType: 0,
       essays: [
         {
           id: 1,
           title: 'Finish Vue Screencast',
-          readytostart: true,
-          inprogress: false,
-          inreview: false,
-          completed: false,
+          status: 1,
           editing: false
         },
         {
           id: 2,
           title: 'Take over world',
-          readytostart: true,
-          inprogress: false,
-          inreview: false,
-          completed: false,
+          status: 1,
           editing: false
-        }
-      ],
-      statuses: [
-        {
-          title: 'Ready to Start',
-          id: '0'
-        },
-        {
-          title: 'In Progress',
-          id: '1'
-        },
-        {
-          title: 'In Review',
-          id: '2'
-        },
-        {
-          title: 'Completed',
-          id: '3'
         }
       ]
     }
   },
   created () {
-    this.$eventBus.$on('removedEssay', (index) => this.removeEssay(index))
+    this.$eventBus.$on('removeEssay', (index) => this.removeEssay(index))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
-    this.$eventBus.$on('readyToStartStatus', (taskID) => this.readyToStartStatus(taskID))
-    this.$eventBus.$on('inProgressStatus', (taskID) => this.inProgressStatus(taskID))
-    this.$eventBus.$on('inReviewStatus', (taskID) => this.inReviewStatus(taskID))
-    this.$eventBus.$on('completedStatus', (taskID) => this.completedStatus(taskID))
+    this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
   },
   computed: {
     remaining () {
-      return this.essays.filter(essay => !essay.completed).length
+      /* Check Filter Type = 0 case (no filter) */
+      if (this.currentFilterType === 0) {
+        return this.essays.length
+      }
+      return this.essays.filter(essay => essay.status === this.currentFilterType && essay.status !== 4).length
     },
     completed () {
-      return this.essays.filter(essay => !essay.completed).length
-    },
-    readytostart () {
-      return this.essays.filter(essay => essay.readytostart).length
-    },
-    inprogress () {
-      return this.essays.filter(essay => essay.inprogress).length
-    },
-    inreview () {
-      return this.essays.filter(essay => essay.inreview).length
+      return this.essays.filter(essay => essay.completed).length
     },
     essaysFiltered () {
-      if (this.filter === 'all') {
-        return this.essays
-      } else if (this.filter === 'ready') {
-        return this.essays.filter(essay => essay.readytostart)
-      } else if (this.filter === 'progress') {
-        return this.essays.filter(essay => essay.inprogress)
-      } else if (this.filter === 'review') {
-        return this.essays.filter(essay => essay.inreview)
-      } else if (this.filter === 'completed') {
-        return this.essays.filter(essay => essay.completed)
-      } else {
+      /* Check Filter Type = 0 case (no filter) before applying filter */
+      if (this.currentFilterType === 0) {
         return this.essays
       }
+      return this.essays.filter(essay => essay.status === this.currentFilterType)
     }
   },
   directives: {
@@ -142,49 +88,14 @@ export default {
     }
   },
   methods: {
+    changeEssayListFilter (filterNumber) {
+      this.currentFilterType = filterNumber
+    },
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
-    readyToStart (essay) {
-      essay.readytostart = true
-      essay.inprogress = false
-      essay.inreview = false
-      essay.completed = false
-    },
-    inProgress (essay) {
-      essay.readytostart = false
-      essay.inprogress = true
-      essay.inreview = false
-      essay.completed = false
-    },
-    inReview (essay) {
-      essay.readytostart = false
-      essay.inprogress = false
-      essay.inreview = true
-      essay.completed = false
-    },
-    completion (essay) {
-      essay.readytostart = false
-      essay.inprogress = false
-      essay.inreview = false
-      essay.completed = true
-    },
-    changeFilter (id) {
-      if (id === 0) {
-        this.filter = 'all'
-      }
-      if (id === 1) {
-        this.filter = 'ready'
-      }
-      if (id === 2) {
-        this.filter = 'progress'
-      }
-      if (id === 3) {
-        this.filter = 'review'
-      }
-      if (id === 4) {
-        this.filter = 'completed'
-      }
+    removeEssay (index) {
+      this.essays.splice(index, 1)
     },
     addEssay () {
       if (this.newEssay.trim().length === 0) {
@@ -193,56 +104,15 @@ export default {
       this.essays.push({
         id: this.idForEssay,
         title: this.newEssay,
-        readytostart: true,
-        inprogress: false,
-        inreview: false,
-        completed: false,
+        status: 1,
         editing: false
       })
 
       this.newEssay = ''
       this.idForEssay++
     },
-    editEssay (essay) {
-      this.beforeEditCache = essay.title
-      essay.editing = true
-    },
-    doneEdit (essay) {
-      if (essay.title.trim().length === 0) {
-        essay.title = this.beforeEditCache
-      }
-      essay.editing = false
-    },
-    removeEssay (index) {
-      this.essays.splice(index, 1)
-    },
-    readyToStartStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = true
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    inProgressStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = true
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    inReviewStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = true
-      this.essays[indexOfTargetEssay].completed = false
-    },
-    completedStatus (taskID) {
-      indexOfTargetEssay = this.essays.findIndex(essay => essay.id === taskID)
-      this.essays[indexOfTargetEssay].readytostart = false
-      this.essays[indexOfTargetEssay].inprogress = false
-      this.essays[indexOfTargetEssay].inreview = false
-      this.essays[indexOfTargetEssay].completed = true
+    changeStatus (correspondingTaskID, statusNumber) {
+      this.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
     }
   }
 }

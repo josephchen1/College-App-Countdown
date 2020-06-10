@@ -1,8 +1,9 @@
 <template>
   <div class="essay-item">
     <div class="essay-item-left">
-      <Dropdown class="status" title="Ready to Start" :items="statuses" :correspondingTaskID="this.id"/>
+      <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingTaskID="this.id"/>
       <input type="checkbox" v-model="completed" />
+      <!-- "Completed" attribute should be reworked later on -->
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
       </div>
@@ -42,30 +43,15 @@ export default {
     return {
       id: this.essay.id,
       title: this.essay.title,
-      readyToStart: this.essay.readytostart,
-      inProgress: this.essay.inprogress,
-      inReview: this.essay.inreview,
-      completed: this.essay.completed,
+      status: this.essay.status,
       editing: this.essay.editing,
       beforeEditCache: '',
-      statuses: [
-        {
-          title: 'Ready to Start',
-          id: '0'
-        },
-        {
-          title: 'In Progress',
-          id: '1'
-        },
-        {
-          title: 'In Review',
-          id: '2'
-        },
-        {
-          title: 'Completed',
-          id: '3'
-        }
-      ]
+      statusDictionary: {
+        1: 'Ready to Start',
+        2: 'In Progress',
+        3: 'In Review',
+        4: 'Completed'
+      }
     }
   },
   created () {
@@ -73,7 +59,7 @@ export default {
   },
   methods: {
     removeEssay (index) {
-      this.$eventBus.$emit('removedEssay', index)
+      this.$eventBus.$emit('removeEssay', index)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -89,8 +75,8 @@ export default {
         essay: {
           id: this.id,
           title: this.title,
-          completed: this.completed,
-          editing: this.editing
+          status: this.status,
+          editing: false
         }
       })
     }
