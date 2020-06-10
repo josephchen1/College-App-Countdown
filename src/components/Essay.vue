@@ -1,7 +1,7 @@
 <template>
   <div class="essay-item">
     <div class="essay-item-left">
-      <Dropdown class="status" title="Ready to Start" :items="statuses" :correspondingTaskID="this.id"/>
+      <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingTaskID="this.id"/>
       <input type="checkbox" v-model="completed" />
       <!-- "Completed" attribute should be reworked later on -->
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
