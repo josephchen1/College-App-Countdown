@@ -3,6 +3,7 @@
     <div class="essay-item-left">
       <Dropdown class="status" title="Ready to Start" :items="statuses" :correspondingTaskID="this.id"/>
       <input type="checkbox" v-model="completed" />
+      <!-- "Completed" attribute should be reworked later on -->
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
       </div>
