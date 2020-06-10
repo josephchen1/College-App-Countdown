@@ -42,10 +42,7 @@ export default {
     return {
       id: this.essay.id,
       title: this.essay.title,
-      readyToStart: this.essay.readytostart,
-      inProgress: this.essay.inprogress,
-      inReview: this.essay.inreview,
-      completed: this.essay.completed,
+      status: this.essay.status,
       editing: this.essay.editing,
       beforeEditCache: '',
       statusDictionary: {
