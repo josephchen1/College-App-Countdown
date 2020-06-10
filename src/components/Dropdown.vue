@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'dropdown',
-  props: ['title', 'items', 'correspondingTaskID'],
+  props: ['title', 'statusDictionary', 'correspondingTaskID'],
   data () {
     return {
       isOpen: false
