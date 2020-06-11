@@ -9,7 +9,7 @@
       </div>
       <input v-else class="essay-item-edit" type="text" v-model="title" @blur="doneEdit()" @keyup.enter="doneEdit()" v-focus/>
     </div>
-    <div class="remove-item" @click="removeEssay(index)">
+    <div class="remove-item" @click="removeEssay(id)">
       &times;
     </div>
   </div>
@@ -58,8 +58,8 @@ export default {
     this.$eventBus.$on(this.inProgress)
   },
   methods: {
-    removeEssay (index) {
-      this.$eventBus.$emit('removeEssay', index)
+    removeEssay (removeEssayID) {
+      this.$eventBus.$emit('removeEssay', removeEssayID)
     },
     editEssay () {
       this.beforeEditCache = this.title
