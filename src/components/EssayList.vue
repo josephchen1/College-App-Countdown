@@ -40,6 +40,7 @@ export default {
       idForEssay: 3,
       beforeEditCache: '',
       currentFilterType: 0,
+      removeEssayIndex: 0,
       essays: [
         {
           id: 1,
@@ -57,7 +58,7 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on('removeEssay', (index) => this.removeEssay(index))
+    this.$eventBus.$on('removeEssay', (removeEssayID) => this.removeEssay(removeEssayID))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
     this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
   },
@@ -94,8 +95,9 @@ export default {
     finishedEdit (data) {
       this.essays.splice(data.index, 1, data.essay)
     },
-    removeEssay (index) {
-      this.essays.splice(index, 1)
+    removeEssay (removeEssayID) {
+      this.removeEssayIndex = this.essays.findIndex(essay => essay.id === removeEssayID)
+      this.essays.splice(this.removeEssayIndex, 1)
     },
     addEssay () {
       if (this.newEssay.trim().length === 0) {
