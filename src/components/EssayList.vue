@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       newEssay: '',
-      idForEssay: 3,
+      idForEssay: this.$store.state.idForEssay,
       beforeEditCache: '',
       currentFilterType: 0,
       removeEssayIndex: 0,
@@ -61,6 +61,7 @@ export default {
     // this.$eventBus.$on('removeEssay', (removeEssayID) => this.removeEssay(removeEssayID))
     // this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
     // this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
+    this.$store.dispatch('retrieveEssays')
   },
   beforeDestroy () {
     // eventBus.$off('removeEssay')

@@ -1,25 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import db from '../firebase'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     currentFilterType: 0,
-    essays: [
-      {
-        id: 1,
-        title: 'Finish Vue Screencast',
-        status: 1,
-        editing: false
-      },
-      {
-        id: 2,
-        title: 'Take over world',
-        status: 1,
-        editing: false
-      }
-    ]
+    essays: [],
+    idForEssay: 0
   },
   mutations: {
     addEssay (state, essay) {
@@ -47,11 +36,28 @@ export default new Vuex.Store({
         status: essay.status,
         editing: false
       })
+    },
+    retrieveEssays (state, essays) {
+      state.essays = essays
     }
   },
   actions: {
     addEssay (context, essay) {
-      context.commit('addEssay', essay)
+      db.collection('essays').add({
+        id: essay.id,
+        title: essay.title,
+        status: 1,
+        editing: false,
+        timestamp: new Date()
+      })
+        .then(docRef => {
+          context.commit('addEssay', {
+            id: essay.id,
+            title: essay.title,
+            // should i be setting status to essay.status or 1? a bit confused
+            status: 1
+          })
+        })
     },
     changeFilter (context, filterNumber) {
       context.commit('changeFilter', filterNumber)
@@ -60,10 +66,37 @@ export default new Vuex.Store({
       context.commit('applyDropdown', payload)
     },
     deleteEssay (context, removeEssayID) {
-      context.commit('deleteEssay', removeEssayID)
+      db.collection('essays').doc(removeEssayID).delete()
+        .then(() => {
+          context.commit('deleteEssay', removeEssayID)
+        })
     },
     finishedEdit (context, essay) {
       context.commit('finishedEdit', essay)
+    },
+    retrieveEssays (context) {
+      db.collection('essays').get()
+        .then(querySnapshot => {
+          var tempEssays = []
+          querySnapshot.forEach(doc => {
+            console.log(doc.data())
+            const data = {
+              // using our ID rather than Google Firebase's ID... good idea?
+              id: doc.data().id,
+              title: doc.data().title,
+              status: doc.data().status,
+              editing: doc.data().editing,
+              timestamp: doc.data().timestamp
+            }
+            tempEssays.push(data)
+          })
+          // here's the code if we want to srot by timestamp instead
+          // var tempEssaysSorted = tempEssays.sort((a, b) => {
+          //   return a.timestamp.seconds - b.timestamp.seconds
+          // })
+          // context.commit('retrieveEssays', tempEssaysSorted)
+          context.commit('retrieveEssays', tempEssays)
+        })
     }
   },
   modules: {
