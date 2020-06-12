@@ -9,11 +9,11 @@
     />
     <div class="extra-container">
       <div class="filter-bar">
-        <button :class="{ active: currentFilterType == 0 }" @click="changeEssayListFilter(0)">All</button>
-        <button :class="{ active: currentFilterType == 1 }" @click="changeEssayListFilter(1)">Ready to Start</button>
-        <button :class="{ active: currentFilterType == 2 }" @click="changeEssayListFilter(2)">In Progress</button>
-        <button :class="{ active: currentFilterType == 3 }" @click="changeEssayListFilter(3)">In Review</button>
-        <button :class="{ active: currentFilterType == 4 }" @click="changeEssayListFilter(4)">Completed</button>
+        <button :class="{ active: $store.state.currentFilterType == 0 }" @click="changeEssayListFilter(0)">All</button>
+        <button :class="{ active: $store.state.currentFilterType == 1 }" @click="changeEssayListFilter(1)">Ready to Start</button>
+        <button :class="{ active: $store.state.currentFilterType == 2 }" @click="changeEssayListFilter(2)">In Progress</button>
+        <button :class="{ active: $store.state.currentFilterType == 3 }" @click="changeEssayListFilter(3)">In Review</button>
+        <button :class="{ active: $store.state.currentFilterType == 4 }" @click="changeEssayListFilter(4)">Completed</button>
       </div>
     </div>
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
