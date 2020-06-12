@@ -65,20 +65,14 @@ export default {
   computed: {
     remaining () {
       /* Check Filter Type = 0 case (no filter) */
-      if (this.currentFilterType === 0) {
-        return this.essays.length
-      }
-      return this.essays.filter(essay => essay.status === this.currentFilterType && essay.status !== 4).length
+      return this.$store.getters.remaining
     },
     completed () {
-      return this.essays.filter(essay => essay.completed).length
+      return this.$store.getters.completed
     },
     essaysFiltered () {
       /* Check Filter Type = 0 case (no filter) before applying filter */
-      if (this.currentFilterType === 0) {
-        return this.essays
-      }
-      return this.essays.filter(essay => essay.status === this.currentFilterType)
+      return this.$store.getters.essaysFiltered
     }
   },
   directives: {
@@ -90,20 +84,20 @@ export default {
   },
   methods: {
     changeEssayListFilter (filterNumber) {
-      this.currentFilterType = filterNumber
+      this.$store.state.currentFilterType = filterNumber
     },
     finishedEdit (data) {
-      this.essays.splice(data.index, 1, data.essay)
+      this.$store.state.essays.splice(data.index, 1, data.essay)
     },
     removeEssay (removeEssayID) {
-      this.removeEssayIndex = this.essays.findIndex(essay => essay.id === removeEssayID)
-      this.essays.splice(this.removeEssayIndex, 1)
+      this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
+      this.$store.state.essays.splice(this.removeEssayIndex, 1)
     },
     addEssay () {
       if (this.newEssay.trim().length === 0) {
         return
       }
-      this.essays.push({
+      this.$store.state.essays.push({
         id: this.idForEssay,
         title: this.newEssay,
         status: 1,
@@ -114,7 +108,7 @@ export default {
       this.idForEssay++
     },
     changeStatus (correspondingTaskID, statusNumber) {
-      this.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
+      this.$store.state.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
     }
   }
 }
