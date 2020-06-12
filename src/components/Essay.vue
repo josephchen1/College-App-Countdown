@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     removeEssay (removeEssayID) {
-      this.$eventBus.$emit('removeEssay', removeEssayID)
+      this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
+      this.$store.state.essays.splice(this.removeEssayIndex, 1)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -69,15 +70,21 @@ export default {
         this.title = this.beforeEditCache
       }
       this.editing = false
-      this.$eventBus.$emit('finishedEdit', {
-        index: this.index,
-        essay: {
-          id: this.id,
-          title: this.title,
-          status: this.status,
-          editing: false
-        }
+      this.$store.state.essays.splice(this.index, 1, {
+        id: this.id,
+        title: this.title,
+        status: this.status,
+        editing: false
       })
+      // this.$eventBus.$emit('finishedEdit', {
+      //   index: this.index,
+      //   essay: {
+      //     id: this.id,
+      //     title: this.title,
+      //     status: this.status,
+      //     editing: false
+      //   }
+      // })
     }
   }
 }

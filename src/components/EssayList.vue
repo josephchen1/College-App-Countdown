@@ -21,7 +21,7 @@
     </transition-group>
 
     <div class="extra-container">
-      <div class="count-left">{{ remaining }} items left</div>
+      <div class="count-left">{{ this.$store.getters.remaining }} items left</div>
     </div>
   </div>
 
@@ -58,9 +58,14 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on('removeEssay', (removeEssayID) => this.removeEssay(removeEssayID))
+    // this.$eventBus.$on('removeEssay', (removeEssayID) => this.removeEssay(removeEssayID))
     this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
     this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
+  },
+  beforeDestroy () {
+    // eventBus.$off('removeEssay')
+    this.$eventBus.$off('finishedEdit')
+    this.$eventBus.$off('changeStatus')
   },
   computed: {
     remaining () {
@@ -86,13 +91,13 @@ export default {
     changeEssayListFilter (filterNumber) {
       this.$store.state.currentFilterType = filterNumber
     },
-    finishedEdit (data) {
-      this.$store.state.essays.splice(data.index, 1, data.essay)
-    },
-    removeEssay (removeEssayID) {
-      this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
-      this.$store.state.essays.splice(this.removeEssayIndex, 1)
-    },
+    // finishedEdit (data) {
+    //   this.$store.state.essays.splice(data.index, 1, data.essay)
+    // },
+    // removeEssay (removeEssayID) {
+    //   this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
+    //   this.$store.state.essays.splice(this.removeEssayIndex, 1)
+    // },
     addEssay () {
       if (this.newEssay.trim().length === 0) {
         return

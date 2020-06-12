@@ -31,7 +31,8 @@ export default {
   methods: {
     applyDropdownProperty (dropdownKey) {
       this.title = this.statusDictionary[dropdownKey]
-      this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
+      // this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
+      this.$store.state.essays.find(essay => essay.id === this.correspondingTaskID).status = dropdownKey
     },
     blur () {
       this.isOpen = false
