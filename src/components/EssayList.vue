@@ -59,13 +59,13 @@ export default {
   },
   created () {
     // this.$eventBus.$on('removeEssay', (removeEssayID) => this.removeEssay(removeEssayID))
-    this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
-    this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
+    // this.$eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
+    // this.$eventBus.$on('changeStatus', (correspondingTaskID, statusNumber) => this.changeStatus(correspondingTaskID, statusNumber))
   },
   beforeDestroy () {
     // eventBus.$off('removeEssay')
-    this.$eventBus.$off('finishedEdit')
-    this.$eventBus.$off('changeStatus')
+    // this.$eventBus.$off('finishedEdit')
+    // this.$eventBus.$off('changeStatus')
   },
   computed: {
     remaining () {
@@ -89,7 +89,8 @@ export default {
   },
   methods: {
     changeEssayListFilter (filterNumber) {
-      this.$store.state.currentFilterType = filterNumber
+      this.$store.commit('changeFilter', filterNumber)
+      // this.$store.state.currentFilterType = filterNumber
     },
     // finishedEdit (data) {
     //   this.$store.state.essays.splice(data.index, 1, data.essay)
@@ -102,19 +103,26 @@ export default {
       if (this.newEssay.trim().length === 0) {
         return
       }
-      this.$store.state.essays.push({
+      this.$store.commit('addEssay', {
         id: this.idForEssay,
         title: this.newEssay,
         status: 1,
         editing: false
       })
 
+      // this.$store.state.essays.push({
+      //   id: this.idForEssay,
+      //   title: this.newEssay,
+      //   status: 1,
+      //   editing: false
+      // })
+
       this.newEssay = ''
       this.idForEssay++
-    },
-    changeStatus (correspondingTaskID, statusNumber) {
-      this.$store.state.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
     }
+    // changeStatus (correspondingTaskID, statusNumber) {
+    //   this.$store.state.essays.find(essay => essay.id === correspondingTaskID).status = statusNumber
+    // }
   }
 }
 </script>

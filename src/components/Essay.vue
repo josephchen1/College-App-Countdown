@@ -1,7 +1,7 @@
 <template>
   <div class="essay-item">
     <div class="essay-item-left">
-      <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingTaskID="this.id"/>
+      <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingEssayID="this.id"/>
       <!-- "Completed" attribute should be reworked later on -->
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
@@ -58,8 +58,7 @@ export default {
   },
   methods: {
     removeEssay (removeEssayID) {
-      this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
-      this.$store.state.essays.splice(this.removeEssayIndex, 1)
+      this.$store.commit('deleteEssay', removeEssayID)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -70,12 +69,18 @@ export default {
         this.title = this.beforeEditCache
       }
       this.editing = false
-      this.$store.state.essays.splice(this.index, 1, {
+      this.$store.commit('finishedEdit', {
         id: this.id,
         title: this.title,
         status: this.status,
         editing: false
       })
+      // this.$store.state.essays.splice(this.index, 1, {
+      //   id: this.id,
+      //   title: this.title,
+      //   status: this.status,
+      //   editing: false
+      // })
       // this.$eventBus.$emit('finishedEdit', {
       //   index: this.index,
       //   essay: {

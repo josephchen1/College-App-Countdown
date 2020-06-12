@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'dropdown',
-  props: ['title', 'statusDictionary', 'correspondingTaskID'],
+  props: ['title', 'statusDictionary', 'correspondingEssayID'],
   data () {
     return {
       isOpen: false
@@ -32,7 +32,7 @@ export default {
     applyDropdownProperty (dropdownKey) {
       this.title = this.statusDictionary[dropdownKey]
       // this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
-      this.$store.state.essays.find(essay => essay.id === this.correspondingTaskID).status = dropdownKey
+      this.$store.commit('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
     },
     blur () {
       this.isOpen = false
