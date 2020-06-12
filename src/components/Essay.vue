@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     removeEssay (removeEssayID) {
-      this.$store.commit('deleteEssay', removeEssayID)
+      this.$store.dispatch('deleteEssay', removeEssayID)
     },
     editEssay () {
       this.beforeEditCache = this.title
@@ -69,7 +69,7 @@ export default {
         this.title = this.beforeEditCache
       }
       this.editing = false
-      this.$store.commit('finishedEdit', {
+      this.$store.dispatch('finishedEdit', {
         id: this.id,
         title: this.title,
         status: this.status,

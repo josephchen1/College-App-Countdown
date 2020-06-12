@@ -32,7 +32,7 @@ export default {
     applyDropdownProperty (dropdownKey) {
       this.title = this.statusDictionary[dropdownKey]
       // this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
-      this.$store.commit('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
+      this.$store.dispatch('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
     },
     blur () {
       this.isOpen = false

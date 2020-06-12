@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     changeEssayListFilter (filterNumber) {
-      this.$store.commit('changeFilter', filterNumber)
+      this.$store.dispatch('changeFilter', filterNumber)
       // this.$store.state.currentFilterType = filterNumber
     },
     // finishedEdit (data) {
@@ -103,7 +103,7 @@ export default {
       if (this.newEssay.trim().length === 0) {
         return
       }
-      this.$store.commit('addEssay', {
+      this.$store.dispatch('addEssay', {
         id: this.idForEssay,
         title: this.newEssay,
         status: 1,

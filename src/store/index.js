@@ -50,6 +50,21 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    addEssay (context, essay) {
+      context.commit('addEssay', essay)
+    },
+    changeFilter (context, filterNumber) {
+      context.commit('changeFilter', filterNumber)
+    },
+    applyDropdown (context, payload) {
+      context.commit('applyDropdown', payload)
+    },
+    deleteEssay (context, removeEssayID) {
+      context.commit('deleteEssay', removeEssayID)
+    },
+    finishedEdit (context, essay) {
+      context.commit('finishedEdit', essay)
+    }
   },
   modules: {
   },
