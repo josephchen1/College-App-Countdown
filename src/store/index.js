@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading: true,
     currentFilterType: 0,
     essays: [],
     idForEssay: 0
@@ -72,9 +73,20 @@ export default new Vuex.Store({
         })
     },
     finishedEdit (context, essay) {
-      context.commit('finishedEdit', essay)
+      db.collection('essays').doc(essay.id).set({
+        id: essay.id,
+        title: essay.title,
+        status: essay.status,
+        editing: false,
+        timestamp: new Date()
+      })
+        .then(() => {
+          alert('hi')
+          context.commit('finishedEdit', essay)
+        })
     },
     retrieveEssays (context) {
+      context.state.loading = true
       db.collection('essays').get()
         .then(querySnapshot => {
           var tempEssays = []
@@ -90,6 +102,8 @@ export default new Vuex.Store({
             }
             tempEssays.push(data)
           })
+
+          context.state.loading = false
           // here's the code if we want to srot by timestamp instead
           // var tempEssaysSorted = tempEssays.sort((a, b) => {
           //   return a.timestamp.seconds - b.timestamp.seconds

@@ -54,7 +54,8 @@ export default {
     }
   },
   created () {
-    this.$eventBus.$on(this.inProgress)
+    // what is this for?
+    // this.$eventBus.$on(this.inProgress)
   },
   methods: {
     removeEssay (removeEssayID) {
