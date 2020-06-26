@@ -53,6 +53,7 @@ export default new Vuex.Store({
       })
         .then(docRef => {
           context.commit('addEssay', {
+            key: docRef.id,
             id: essay.id,
             title: essay.title,
             // should i be setting status to essay.status or 1? a bit confused
@@ -67,22 +68,41 @@ export default new Vuex.Store({
       context.commit('applyDropdown', payload)
     },
     deleteEssay (context, removeEssayID) {
-      db.collection('essays').doc(removeEssayID).delete()
-        .then(() => {
-          context.commit('deleteEssay', removeEssayID)
+      let key = ''
+      db.collection('essays').get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            if (removeEssayID === doc.data().id) {
+              key = doc.id
+            }
+          })
+          db.collection('essays').doc(key).delete()
+            .then(() => {
+              context.commit('deleteEssay', removeEssayID)
+            })
         })
     },
     finishedEdit (context, essay) {
-      db.collection('essays').doc(essay.id).set({
-        id: essay.id,
-        title: essay.title,
-        status: essay.status,
-        editing: false,
-        timestamp: new Date()
-      })
-        .then(() => {
-          alert('hi')
-          context.commit('finishedEdit', essay)
+      // type cast from int to str
+      // const id = '' + essay.id
+      let key = ''
+      db.collection('essays').get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            if (essay.id === doc.data().id) {
+              key = doc.id
+            }
+          })
+          db.collection('essays').doc(key).set({
+            id: essay.id,
+            title: essay.title,
+            status: essay.status,
+            editing: false,
+            timestamp: new Date()
+          })
+            .then(() => {
+              context.commit('finishedEdit', essay)
+            })
         })
     },
     retrieveEssays (context) {
@@ -93,6 +113,7 @@ export default new Vuex.Store({
           querySnapshot.forEach(doc => {
             console.log(doc.data())
             const data = {
+              key: doc.id,
               // using our ID rather than Google Firebase's ID... good idea?
               id: doc.data().id,
               title: doc.data().title,
@@ -102,14 +123,14 @@ export default new Vuex.Store({
             }
             tempEssays.push(data)
           })
-
+          // this.idForEssay = tempEssays.length
           context.state.loading = false
           // here's the code if we want to srot by timestamp instead
-          // var tempEssaysSorted = tempEssays.sort((a, b) => {
-          //   return a.timestamp.seconds - b.timestamp.seconds
-          // })
-          // context.commit('retrieveEssays', tempEssaysSorted)
-          context.commit('retrieveEssays', tempEssays)
+          var tempEssaysSorted = tempEssays.sort((a, b) => {
+            return a.timestamp.seconds - b.timestamp.seconds
+          })
+          context.commit('retrieveEssays', tempEssaysSorted)
+          // context.commit('retrieveEssays', tempEssays)
         })
     }
   },

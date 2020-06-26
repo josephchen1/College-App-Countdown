@@ -39,24 +39,11 @@ export default {
   data () {
     return {
       newEssay: '',
-      idForEssay: this.$store.state.idForEssay,
+      idForEssay: this.$store.state.essays.length,
       beforeEditCache: '',
       currentFilterType: 0,
       removeEssayIndex: 0,
-      essays: [
-        {
-          id: 1,
-          title: 'Finish Vue Screencast',
-          status: 1,
-          editing: false
-        },
-        {
-          id: 2,
-          title: 'Take over world',
-          status: 1,
-          editing: false
-        }
-      ]
+      essays: []
     }
   },
   created () {
@@ -99,10 +86,12 @@ export default {
     //   this.$store.state.essays.splice(data.index, 1, data.essay)
     // },
     // removeEssay (removeEssayID) {
+    //   alert(removeEssayID)
     //   this.removeEssayIndex = this.$store.state.essays.findIndex(essay => essay.id === removeEssayID)
     //   this.$store.state.essays.splice(this.removeEssayIndex, 1)
     // },
     addEssay () {
+      this.idForEssay = this.$store.state.essays.length
       if (this.newEssay.trim().length === 0) {
         return
       }
