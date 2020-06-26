@@ -53,7 +53,6 @@ export default new Vuex.Store({
       })
         .then(docRef => {
           context.commit('addEssay', {
-            key: docRef.id,
             id: essay.id,
             title: essay.title,
             // should i be setting status to essay.status or 1? a bit confused
