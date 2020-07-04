@@ -81,24 +81,15 @@ export default new Vuex.Store({
     finishedEdit (context, essay) {
       // type cast from int to str
       // const id = '' + essay.id
-      let key = ''
-      db.collection('essays').get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            if (essay.id === doc.data().id) {
-              key = doc.id
-            }
-          })
-          db.collection('essays').doc(key).set({
-            id: essay.id,
-            title: essay.title,
-            status: essay.status,
-            editing: false,
-            timestamp: new Date()
-          })
-            .then(() => {
-              context.commit('finishedEdit', essay)
-            })
+      db.collection('essays').doc(essay.id.toString()).set({
+        id: essay.id,
+        title: essay.title,
+        status: essay.status,
+        editing: false,
+        timestamp: new Date()
+      })
+        .then(() => {
+          context.commit('finishedEdit', essay)
         })
     },
     retrieveEssays (context) {
