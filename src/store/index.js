@@ -44,7 +44,8 @@ export default new Vuex.Store({
   },
   actions: {
     addEssay (context, essay) {
-      db.collection('essays').add({
+      // Add essay with Document ID as essay.id.toString()
+      db.collection('essays').doc(essay.id.toString()).set({
         id: essay.id,
         title: essay.title,
         status: 1,
