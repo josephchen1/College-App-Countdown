@@ -65,17 +65,13 @@ export default new Vuex.Store({
       context.commit('changeFilter', filterNumber)
     },
     applyDropdown (context, payload) {
-      context.commit('applyDropdown', payload)
+      db.collection('essays').doc(payload.essayID.toString()).set({
+        status: payload.key
+      }, { merge: true })
+        .then(() => {
+          context.commit('applyDropdown', payload)
+        })
     },
-    deleteEssay (context, removeEssayID) {
-      let key = ''
-      db.collection('essays').get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            if (removeEssayID === doc.data().id) {
-              key = doc.id
-            }
-          })
     deleteEssay (context, removeEssayID) {
       db.collection('essays').doc(removeEssayID.toString()).delete()
         .then(() => {
