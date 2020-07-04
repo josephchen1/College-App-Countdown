@@ -76,10 +76,10 @@ export default new Vuex.Store({
               key = doc.id
             }
           })
-          db.collection('essays').doc(key).delete()
-            .then(() => {
-              context.commit('deleteEssay', removeEssayID)
-            })
+    deleteEssay (context, removeEssayID) {
+      db.collection('essays').doc(removeEssayID.toString()).delete()
+        .then(() => {
+          context.commit('deleteEssay', removeEssayID)
         })
     },
     finishedEdit (context, essay) {
