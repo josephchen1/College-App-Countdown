@@ -44,7 +44,8 @@ export default new Vuex.Store({
   },
   actions: {
     addEssay (context, essay) {
-      db.collection('essays').add({
+      // Add essay with Document ID as essay.id.toString()
+      db.collection('essays').doc(essay.id.toString()).set({
         id: essay.id,
         title: essay.title,
         status: 1,
@@ -64,44 +65,31 @@ export default new Vuex.Store({
       context.commit('changeFilter', filterNumber)
     },
     applyDropdown (context, payload) {
-      context.commit('applyDropdown', payload)
+      db.collection('essays').doc(payload.essayID.toString()).set({
+        status: payload.key
+      }, { merge: true })
+        .then(() => {
+          context.commit('applyDropdown', payload)
+        })
     },
     deleteEssay (context, removeEssayID) {
-      let key = ''
-      db.collection('essays').get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            if (removeEssayID === doc.data().id) {
-              key = doc.id
-            }
-          })
-          db.collection('essays').doc(key).delete()
-            .then(() => {
-              context.commit('deleteEssay', removeEssayID)
-            })
+      db.collection('essays').doc(removeEssayID.toString()).delete()
+        .then(() => {
+          context.commit('deleteEssay', removeEssayID)
         })
     },
     finishedEdit (context, essay) {
       // type cast from int to str
       // const id = '' + essay.id
-      let key = ''
-      db.collection('essays').get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            if (essay.id === doc.data().id) {
-              key = doc.id
-            }
-          })
-          db.collection('essays').doc(key).set({
-            id: essay.id,
-            title: essay.title,
-            status: essay.status,
-            editing: false,
-            timestamp: new Date()
-          })
-            .then(() => {
-              context.commit('finishedEdit', essay)
-            })
+      db.collection('essays').doc(essay.id.toString()).set({
+        id: essay.id,
+        title: essay.title,
+        status: essay.status,
+        editing: false,
+        timestamp: new Date()
+      })
+        .then(() => {
+          context.commit('finishedEdit', essay)
         })
     },
     retrieveEssays (context) {
