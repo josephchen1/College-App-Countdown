@@ -107,7 +107,6 @@ export default new Vuex.Store({
     },
     retrieveEssays (context) {
       context.state.loading = true
-      alert(firebase.auth().currentUser.email)
       db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').get()
         .then(querySnapshot => {
           var tempEssays = []
@@ -146,7 +145,16 @@ export default new Vuex.Store({
       return state.essays.filter(essay => essay.status === state.currentFilterType && essay.status !== 4).length
     },
     completed (state) {
-      return state.essays.filter(essay => essay.completed).length
+      return state.essays.filter(essay => essay.status === 4).length
+    },
+    inprogress (state) {
+      return state.essays.filter(essay => essay.status === 2).length
+    },
+    inreview (state) {
+      return state.essays.filter(essay => essay.status === 3).length
+    },
+    readytostart (state) {
+      return state.essays.filter(essay => essay.status === 1).length
     },
     essaysFiltered (state) {
       /* Check Filter Type = 0 case (no filter) before applying filter */

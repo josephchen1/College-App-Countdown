@@ -1,5 +1,9 @@
 <template>
   <div id="app" class="container">
+    <div class="count-left">{{ this.$store.getters.readytostart }} Ready to Start</div>
+    <div class="count-left">{{ this.$store.getters.inprogress }} In Progress</div>
+    <div class="count-left">{{ this.$store.getters.inreview }} In Review</div>
+    <div class="count-left">{{ this.$store.getters.completed }} Completed</div>
     <img alt="Vue logo" src="./assets/logo.png" class="logo">
     <essay-list></essay-list>
   </div>
