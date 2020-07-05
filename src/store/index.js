@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '../firebase'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 
 Vue.use(Vuex)
 
@@ -10,6 +12,17 @@ export default new Vuex.Store({
     currentFilterType: 0,
     essays: [],
     idForEssay: 0
+  },
+  computed: {
+    userID () {
+      var user = firebase.auth().currentUser
+      alert(user.email)
+      if (user != null) {
+        return user.email
+      } else {
+        return null
+      }
+    }
   },
   mutations: {
     addEssay (state, essay) {
@@ -45,7 +58,7 @@ export default new Vuex.Store({
   actions: {
     addEssay (context, essay) {
       // Add essay with Document ID as essay.id.toString()
-      db.collection('essays').doc(essay.id.toString()).set({
+      db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').doc(essay.id.toString()).set({
         id: essay.id,
         title: essay.title,
         status: 1,
@@ -65,7 +78,7 @@ export default new Vuex.Store({
       context.commit('changeFilter', filterNumber)
     },
     applyDropdown (context, payload) {
-      db.collection('essays').doc(payload.essayID.toString()).set({
+      db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').doc(payload.essayID.toString()).set({
         status: payload.key
       }, { merge: true })
         .then(() => {
@@ -73,7 +86,7 @@ export default new Vuex.Store({
         })
     },
     deleteEssay (context, removeEssayID) {
-      db.collection('essays').doc(removeEssayID.toString()).delete()
+      db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').doc(removeEssayID.toString()).delete()
         .then(() => {
           context.commit('deleteEssay', removeEssayID)
         })
@@ -81,7 +94,7 @@ export default new Vuex.Store({
     finishedEdit (context, essay) {
       // type cast from int to str
       // const id = '' + essay.id
-      db.collection('essays').doc(essay.id.toString()).set({
+      db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').doc(essay.id.toString()).set({
         id: essay.id,
         title: essay.title,
         status: essay.status,
@@ -94,7 +107,8 @@ export default new Vuex.Store({
     },
     retrieveEssays (context) {
       context.state.loading = true
-      db.collection('essays').get()
+      alert(firebase.auth().currentUser.email)
+      db.collection('userdata').doc(firebase.auth().currentUser.email).collection('essays').get()
         .then(querySnapshot => {
           var tempEssays = []
           querySnapshot.forEach(doc => {

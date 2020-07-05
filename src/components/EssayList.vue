@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 import Essay from './Essay.vue'
 export default {
   name: 'essay-list',
@@ -58,6 +60,15 @@ export default {
     // this.$eventBus.$off('changeStatus')
   },
   computed: {
+    userID () {
+      var user = firebase.auth().currentUser
+      alert(user.email)
+      if (user != null) {
+        return user.email
+      } else {
+        return null
+      }
+    },
     remaining () {
       /* Check Filter Type = 0 case (no filter) */
       return this.$store.getters.remaining
