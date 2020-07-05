@@ -1,6 +1,6 @@
 <template>
   <div class="status-item" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
-    <a href="#">
+    <a href="">
       {{ title }}
     </a>
     <transition name="fade" appear>
