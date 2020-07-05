@@ -4,6 +4,8 @@ import routes from './routes'
 import Master from './components/layouts/Master'
 import './registerServiceWorker'
 import store from './store'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 
 Vue.prototype.$eventBus = new Vue()
 
@@ -16,8 +18,25 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-new Vue({
-  store,
-  router: router,
-  render: h => h(Master)
-}).$mount('#app')
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = firebase.auth().currentUser
+  if (requiresAuth & !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
+let app
+
+firebase.auth().onAuthStateChanged(user => {
+  console.log(user)
+  if (!app) {
+    app = new Vue({
+      store,
+      router: router,
+      render: h => h(Master)
+    }).$mount('#app')
+  }
+})

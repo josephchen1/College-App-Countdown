@@ -6,7 +6,7 @@ import Register from './components/auth/Register'
 
 const routes = [
   { path: '/', name: 'home', component: LandingPage },
-  { path: '/essay', name: 'essay', component: App },
+  { path: '/essay', name: 'essay', component: App, meta: { requiresAuth: true } },
   { path: '/about', name: 'about', component: AboutPage },
   { path: '/login', name: 'login', component: Login },
   { path: '/register', name: 'register', component: Register }

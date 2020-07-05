@@ -8,8 +8,7 @@
             <li><router-link :to="{ name: 'home' }">Home</router-link></li>
             <li><router-link :to="{ name: 'essay' }">App</router-link></li>
             <li><router-link :to="{ name: 'about' }">About</router-link></li>
-            <li><router-link :to="{ name: 'login' }">Login</router-link></li>
-            <li><router-link :to="{ name: 'register' }">Register</router-link></li>
+            <top-header></top-header>
         </ul>
 
         <router-view></router-view>
@@ -17,8 +16,9 @@
 </template>
 
 <script>
+import TopHeader from './top-header'
 export default {
-
+  components: { 'top-header': TopHeader }
 }
 </script>
 
