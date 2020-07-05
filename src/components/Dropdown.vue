@@ -1,8 +1,8 @@
 <template>
   <div class="status-item" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
-    <a href="">
+    <span class="item">
       {{ title }}
-    </a>
+    </span>
     <transition name="fade" appear>
       <div class="sub-menu"
       v-if="isOpen">
