@@ -15,7 +15,7 @@
         </template>
     </b-navbar>
         <router-view></router-view>
-        <footer class="footer-distributed">
+        <footer v-show="!(this.$route.name==='essay')" class="footer-distributed">
     <div class="footer-right">
       <a href="https://www.facebook.com/sephhiiee/" target="_blank">
         <i class="fa fa-facebook"></i>
