@@ -13,7 +13,7 @@
         <div class="columns">
             <div class="column">
             <p>EssayTrack is meant to be a free-to-use, minimal platform for rising seniors that want a place to organize all their college application essays.</p>
-            <p class="has-text-right"><button class="sgn_up_btn">Get Started - It's Free</button></p>
+            <p class="has-text-right"><button class="sgn_up_btn" @click="$router.push('login')">Get Started - It's Free</button></p>
             </div>
         </div>
     </div>
