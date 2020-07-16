@@ -1,11 +1,13 @@
-<template>
-  <div class="nav2">
-  <li><router-link v-if='!loggedIn' :to="{ name: 'login' }">Login</router-link></li>
-  <li><router-link v-if='!loggedIn' :to="{ name: 'register' }">Register</router-link></li>
-  <div class="auth-status">
-    <button v-if="loggedIn" class='but' @click='signOut'>Sign out</button>
+<template slot="end">
+  <b-navbar-item tag="div">
+                <div class="buttons">
+                      <b-navbar-item v-if='!loggedIn' tag="router-link" :to="{ name: 'login' }" class="button is-light">Login</b-navbar-item>
+                      <b-navbar-item v-if='!loggedIn' tag="router-link" :to="{ name: 'register' }" class="button is-primary">Register</b-navbar-item>
+            <div class="auth-status">
+    <b-navbar-item v-if="loggedIn" class="button is-success" @click='signOut'>Sign out</b-navbar-item>
   </div>
   </div>
+            </b-navbar-item>
 </template>
 
 <script>
@@ -59,13 +61,5 @@ div {
   letter-spacing: .1rem;
   text-decoration: none;
   text-transform: uppercase;
-}
-.not-logged {
-
-}
-
-.nav2 {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

@@ -1,10 +1,11 @@
 <template>
   <div id="app" class="container">
-    <div class="count-left">{{ this.$store.getters.readytostart }} Ready to Start</div>
-    <div class="count-left">{{ this.$store.getters.inprogress }} In Progress</div>
-    <div class="count-left">{{ this.$store.getters.inreview }} In Review</div>
-    <div class="count-left">{{ this.$store.getters.completed }} Completed</div>
-    <img alt="Vue logo" src="./assets/logo.png" class="logo">
+    <div class="stat_all columns is-3">
+    <div class="column"><div class="read_stat count-left"><span class="stat_count">{{ this.$store.getters.readytostart }}</span> <br/> Ready to Start</div></div>
+    <div class="column"><div class="prog_stat count-left"><span class="stat_count">{{ this.$store.getters.inprogress }} </span> <br/>In Progress</div></div>
+    <div class="column"><div class="rev_stat count-left"><span class="stat_count">{{ this.$store.getters.inreview }} </span> <br/> In Review</div></div>
+    <div class="column"><div class="compl_stat count-left"><span class="stat_count">{{ this.$store.getters.completed }} </span> <br/> Completed</div></div>
+    </div>
     <essay-list></essay-list>
   </div>
 </template>
@@ -25,12 +26,6 @@ export default {
 * {
   box-sizing: border-box;
 }
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -45,5 +40,34 @@ export default {
   display: block;
   margin: 20px auto;
   height: 75px;
+}
+.stat_all{
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+.compl_stat{
+  background-color: #c9fccd;;
+}
+.read_stat{
+  background-color: #f4b6bb;
+}
+.prog_stat{
+  background-color: #fcecc0;
+}
+.rev_stat{
+  background-color: #c1e0fc;
+}
+.count-left{
+  padding: 20px 10px;
+  text-align: center;
+  display: block;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+.stat_count {
+    font-size: 46px;
+    line-height: normal;
 }
 </style>

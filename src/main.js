@@ -6,6 +6,10 @@ import './registerServiceWorker'
 import store from './store'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+
+Vue.use(Buefy)
 
 Vue.prototype.$eventBus = new Vue()
 

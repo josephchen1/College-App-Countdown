@@ -1,21 +1,30 @@
 <template>
-  <div class="flex-center">
-    <div>
+  <div class="flex-center pg_wrap_lg">
+    <div class="container">
+      <div class="columns login_pg">
+        <div class="column log_sec is-half">
+            <h3 class="title">Welcome back!</h3>
       <form @submit.prevent='pressed'>
-       Login
       <div class='login'>
-        <input type='text' placeholder='login' v-model='email' />
+        <b-field>
+        <b-input type='text' placeholder='Login' v-model='email' icon="account" size="is-medium" > </b-input>
+        </b-field>
       </div>
       <div class='password'>
-        <input type='password' placeholder='password' v-model='password' />
+        <b-field>
+        <b-input type='password' placeholder='Password' v-model='password' icon="key" size="is-medium" > </b-input>
+        </b-field>
       </div>
-      <button>Login</button>
+      <button class="">Login</button>
       </form>
-    </div>
     <div>
-      <span>Need an account? Click here to <router-link to="register">Register</router-link></span>
+      <h6 class="reg_txt subtitle">Need an account?<br/> Click here to <b-navbar-item tag="router-link" :to="{ name: 'register' }" class="reg_log_btn">Register</b-navbar-item></h6>
     </div>
     <div class='error' v-if='error'>{{error.message}}</div>
+        </div>
+        <div class="column is-half img_sec"><img src="./../../assets/login_img.jpg" /> </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -61,21 +70,62 @@ div {
 .register-link {
   display: inline-block;
 }
-
-input {
-  width: 400px;
-  padding: 30px;
-  margin: 20px;
-  font-size: 21px;
+.login,.password {
+  margin-bottom: 20px;
 }
-
 button {
-  width: 400px;
-  height: 75px;
-  font-size: 100%;
+background-color: #ffc5c7;
+    border: none;
+    border-radius: 65px;
+    font-size: 20px;
+    padding: 8px 55px 11px 55px;
+    width: auto;
+    line-height: normal;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 10px;
 }
-
 .error {
   color: red;
+}
+.log_sec{
+    background-color: #fff4f4;
+    padding: 60px 40px;
+}
+.login_pg .img_sec{
+  background-color: #ffc5c7;
+  justify-content: center;
+    display: flex;
+}
+img{
+  align-self: center;
+}
+.login_pg{
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0px 11px 8px -9px #afafaf;
+}
+.reg_txt{
+  margin-top: 15px;
+  font-size: 16px;
+}
+.pala input{
+  padding: 20px !important;
+}
+.pg_wrap_lg{
+  background-image: url(./../../assets/pg_bg1.jpg);
+  padding: 100px 0px;
+    background-size: cover;
+    background-position: top center;
+}
+.log_sec .title{
+  margin-bottom: 35px;
+}
+.reg_log_btn{
+  display: inline-block;
+    padding: 0;
+    font-weight: bold;
+    text-decoration: underline;
 }
 </style>

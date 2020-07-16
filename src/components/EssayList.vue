@@ -3,7 +3,7 @@
     <input
       type="text"
       class="essay-input"
-      placeholder="What needs to be done"
+      placeholder="Input your essays here! You got this!"
       v-model="newEssay"
       @keyup.enter="addEssay"
     />
@@ -137,14 +137,19 @@ export default {
 .essay-input {
   width: 100%;
   padding: 10px 18px;
+  background-color: #f2efef;
   font-size: 18px;
+  border: none;
   margin-bottom: 16px;
+  font-weight: bold;
 
   &:focus {
     outline: 0;
   }
 }
-
+.essay-input::placeholder{
+  color: #918f8f;
+}
 .essay-item {
   margin-bottom: 12px;
   display: flex;
@@ -209,6 +214,7 @@ button {
     margin-bottom: 15px;
     display: flex;
     align-items: left;
+    flex-flow: wrap;
 }
 
 .active {
@@ -304,6 +310,47 @@ button {
   top: 56px;
   left: 12px;
 }
+.filter-bar button {
+    border: none;
+    padding: 8px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    width: auto;
+    border-radius: 0;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+.filter-bar button:first-child{
+    background-color: #C2C2C240;
+}
+.filter-bar button:nth-child(2){
+    background-color: #f4b6bb40;
+}
+.filter-bar button:nth-child(3){
+    background-color: #fcecc040;
+}
+.filter-bar button:nth-child(4){
+    background-color: #c1e0fc40;
+}
+.filter-bar button:nth-child(5){
+    background-color: #c9fccd40;
+}
+.filter-bar button.active:first-child{
+    background-color: #C2C2C2;
+}
+.filter-bar button.active:nth-child(2){
+    background-color: #f4b6bb;
+}
+.filter-bar button.active:nth-child(3){
+    background-color: #fcecc0;
+}
+.filter-bar button.active:nth-child(4){
+    background-color: #c1e0fc;
+}
+.filter-bar button.active:nth-child(5){
+    background-color: #c9fccd;
+}
+
 @keyframes lds-roller {
   0% {
     transform: rotate(0deg);
