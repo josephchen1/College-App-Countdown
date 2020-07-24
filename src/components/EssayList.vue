@@ -319,6 +319,7 @@ button {
     border-radius: 0;
     margin-right: 20px;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 .filter-bar button:first-child{
     background-color: #C2C2C240;
@@ -335,22 +336,55 @@ button {
 .filter-bar button:nth-child(5){
     background-color: #c9fccd40;
 }
-.filter-bar button.active:first-child{
+.filter-bar button.active:first-child,.filter-bar button:first-child:hover{
     background-color: #C2C2C2;
 }
-.filter-bar button.active:nth-child(2){
+.filter-bar button.active:nth-child(2),.filter-bar button:nth-child(2):hover{
     background-color: #f4b6bb;
 }
-.filter-bar button.active:nth-child(3){
+.filter-bar button.active:nth-child(3),.filter-bar button:nth-child(3):hover{
     background-color: #fcecc0;
 }
-.filter-bar button.active:nth-child(4){
+.filter-bar button.active:nth-child(4),.filter-bar button:nth-child(4):hover{
     background-color: #c1e0fc;
 }
-.filter-bar button.active:nth-child(5){
+.filter-bar button.active:nth-child(5),.filter-bar button:nth-child(5):hover{
     background-color: #c9fccd;
 }
+.extra-container + span {
+    background-color: #f2efef;
+display: flex;
+    flex-direction: column-reverse;
+    padding: 15px 10px;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+.extra-container + span .essay-item{
+  background-color: #EAE8E8;
+  padding: 2px 5px;
+}
 
+.essay-item-label {
+    word-break: break-word;
+    line-height: normal;
+    font-size: 18px;
+    font-weight: 700;
+}
+.essay-item .status-item.status {
+    padding: 3px 8px;
+    width: 130px;
+    border-radius: 10px;
+    font-weight: 600;
+    flex: none;
+    cursor: pointer;
+    position: relative;
+}
+.essay-item .status-item.status:hover{
+  background-color: #ef889a;
+}
+.essay-item .status-item.status .sub-menu{
+  z-index: 99;
+}
 @keyframes lds-roller {
   0% {
     transform: rotate(0deg);

@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="section_02">
-    <div class="container is-fluid">
+    <div class="container">
         <div class="columns is-vcentered">
             <div class="column has-text-centered">
                 <h1 class="title is-1">It's never been easier to organize your apps.</h1>

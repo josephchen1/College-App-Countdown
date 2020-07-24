@@ -12,11 +12,14 @@
       </div>
       <div class='password'>
         <b-field>
-        <b-input type='password' placeholder='Password' v-model='password' icon="key" size="is-medium" > </b-input>
+        <b-input type='password' placeholder='Password' v-model='password' icon="key" size="is-medium" password-reveal> </b-input>
         </b-field>
       </div>
-      <button class="">Login</button>
+       <button class="">Login</button>
       </form>
+      <div class='resetPassword'>
+            <h6 class="reg_txt subtitle"><b-navbar-item tag="router-link" :to="{ name: 'forgetpassword' }" class="for_password">Forget Password</b-navbar-item></h6>
+      </div>
     <div>
       <h6 class="reg_txt subtitle">Need an account?<br/> Click here to <b-navbar-item tag="router-link" :to="{ name: 'register' }" class="reg_log_btn">Register</b-navbar-item></h6>
     </div>
@@ -51,6 +54,9 @@ export default {
         .catch(error => {
           this.error = error
         })
+    },
+    resetPassword () {
+      console.log('Hello')
     }
   }
 }
@@ -118,6 +124,7 @@ img{
   padding: 100px 0px;
     background-size: cover;
     background-position: top center;
+        height: 100vh;
 }
 .log_sec .title{
   margin-bottom: 35px;
@@ -127,5 +134,12 @@ img{
     padding: 0;
     font-weight: bold;
     text-decoration: underline;
+}
+button:hover{
+  cursor: pointer;
+  background-color: #ff9296;
+}
+a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active{
+  background-color: transparent;
 }
 </style>

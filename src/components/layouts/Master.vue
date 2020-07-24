@@ -1,6 +1,8 @@
 <template>
     <div id="app">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <div class="main_menu">
+        <div class="container">
     <b-navbar>
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ name: 'home' }">
@@ -14,8 +16,11 @@
                             <top-header></top-header>
         </template>
     </b-navbar>
+    </div>
+    </div>
         <router-view></router-view>
         <footer v-show="!(this.$route.name==='essay')" class="footer-distributed">
+      <div class="container">
     <div class="footer-right">
       <a href="https://www.facebook.com/sephhiiee/" target="_blank">
         <i class="fa fa-facebook"></i>
@@ -45,6 +50,7 @@
       </p>
 
       <p>Joseph Chen &copy; 2020</p>
+      </div>
     </div>
   </footer>
     </div>
@@ -75,9 +81,15 @@ export default {
     display: flex;
     justify-content: center;
   }
-  .navbar {
+  .main_menu {
     border-bottom: 1px solid lightgrey;
     width: 100%;
+  }
+.navbar .navbar-brand a{
+    padding-left: 10px;
+  }
+.buttons .auth-status{
+    padding: 0;
   }
   .navbar a {
     color: #636b6f;

@@ -4,33 +4,15 @@
               <div class="columns login_pg">
                 <div class="column is-half img_sec"><img src="./../../assets/reg_log.png" /> </div>
                 <div class="column log_sec is-half">
-                  <h4 class="title">CREATE AN ACCOUNT</h4>
+                  <h4 class="title">FORGET PASSWORD</h4>
         <div v-if="error" class="error">{{error.message}}</div>
         <form @submit.prevent="pressed">
             <div class="email">
-              <b-field label="Email Address">
-                <b-input type="email" required v-model="email" placeholder="email" size="is-medium"> </b-input>
+              <b-field label="email address">
+                <b-input type="email" v-model="email" placeholder="Enter Registered Email" size="is-medium"> </b-input>
               </b-field>
             </div>
-            <div class="password">
-              <b-field label="Password">
-                <b-input type="password" required v-model="password" placeholder="password" size="is-medium" password-reveal> </b-input>
-              </b-field>
-            </div>
-
-            <div class="repeatpassword">
-              <b-field label="Repeat Password" :type="{
-                'is-danger':$v.repeatpassword.$error, 'is-success': (password != '') ?
-                !$v.repeatpassword.$invalid : '' }">
-                <b-input type="password" required v-model.trim="$v.repeatpassword.$model" size="is-medium" placeholder="Repeat password">
-                </b-input>
-              </b-field>
-                <!--<div class="valid-feedback">Your passwords is identical!</div>
-<div class="invalid-feedback">
-<span v-if="!$v.repeatpassword.sameAsPassword">Passwords must be identical.</span>
-</div>-->
-            </div>
-            <button type="submit">Register</button>
+            <button type="submit">Reset Password</button>
         </form>
                 </div>
     </div>
@@ -41,30 +23,30 @@
 <script>
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
-import { sameAs } from 'vuelidate/lib/validators'
 export default {
   methods: {
     pressed () {
-      try {
-        const user = firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-        console.log(user)
-        this.$router.replace({ name: 'essay' })
-      } catch (err) {
-        console.log(err)
-      }
+      var auth = firebase.auth()
+      var emailAddress = this.email
+      auth.sendPasswordResetEmail(emailAddress).then(function () {
+        alert('Please check your email for reset password link.')
+      })
+        .catch(function (error) {
+          // Error occurred. Inspect error.code.
+          // Handle Errors here.
+          var errorCode = error.code
+          var errorMessage = error.message
+          if (errorCode === 'auth/user-not-found') {
+            alert('User not found', errorMessage)
+          } else {
+            console.error(error)
+          }
+        })
     }
   },
   data () {
     return {
-      email: '',
-      password: '',
-      repeatpassword: '',
       error: ''
-    }
-  },
-  validations: {
-    repeatpassword: {
-      sameAsPassword: sameAs('password')
     }
   }
 }

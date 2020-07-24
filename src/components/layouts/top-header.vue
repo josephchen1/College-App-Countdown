@@ -2,7 +2,7 @@
   <b-navbar-item tag="div">
                 <div class="buttons">
                       <b-navbar-item v-if='!loggedIn' tag="router-link" :to="{ name: 'login' }" class="button is-light">Login</b-navbar-item>
-                      <b-navbar-item v-if='!loggedIn' tag="router-link" :to="{ name: 'register' }" class="button is-primary">Register</b-navbar-item>
+                      <b-navbar-item v-if='!loggedIn' tag="router-link" :to="{ name: 'register' }" class="button is-primary btn_reg">Register</b-navbar-item>
             <div class="auth-status">
     <b-navbar-item v-if="loggedIn" class="button is-success" @click='signOut'>Sign out</b-navbar-item>
   </div>
@@ -61,5 +61,13 @@ div {
   letter-spacing: .1rem;
   text-decoration: none;
   text-transform: uppercase;
+}
+.navbar-item.button{
+  padding: 0 20px;
+  height: 42px;
+  line-height: 40px;
+}
+.navbar .btn_reg{
+  margin-right: 0 !important;
 }
 </style>

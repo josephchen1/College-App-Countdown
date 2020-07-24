@@ -8,6 +8,9 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 Vue.use(Buefy)
 
