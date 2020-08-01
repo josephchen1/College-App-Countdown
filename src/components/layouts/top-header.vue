@@ -76,8 +76,7 @@ div {
 }
 .button.is-success:hover {
   background-color:#4928a2;
-  opacity: 150%;
-  color: white;
+    opacity: 100;
 }
 .button.is-primary.btn_reg:focus {
   background-color:#7957d5;
@@ -85,7 +84,6 @@ div {
 }
 .button.is-primary.btn_reg:hover {
   background-color:#4928a2;
-  opacity: 150%;
-  color: white;
+  opacity: 100;
 }
 </style>
