@@ -18,7 +18,7 @@
        <button class="">Login</button>
       </form>
       <div class='resetPassword'>
-            <h6 class="reg_txt subtitle"><b-navbar-item tag="router-link" :to="{ name: 'forgetpassword' }" class="for_password">Forget Password</b-navbar-item></h6>
+            <h6 class="reg_txt subtitle"><b-navbar-item tag="router-link" :to="{ name: 'forgetpassword' }" class="for_password">Forget Password?</b-navbar-item></h6>
       </div>
     <div>
       <h6 class="reg_txt subtitle">Need an account?<br/> Click here to <b-navbar-item tag="router-link" :to="{ name: 'register' }" class="reg_log_btn">Register</b-navbar-item></h6>
@@ -133,7 +133,6 @@ img{
   display: inline-block;
     padding: 0;
     font-weight: bold;
-    text-decoration: underline;
 }
 button:hover{
   cursor: pointer;
@@ -141,5 +140,11 @@ button:hover{
 }
 a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active{
   background-color: transparent;
+}
+.for_password{
+  padding: 0px;
+  display: inline-block;
+    padding: 0;
+    font-weight: bold;
 }
 </style>

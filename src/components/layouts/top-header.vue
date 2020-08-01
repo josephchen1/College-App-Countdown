@@ -70,4 +70,22 @@ div {
 .navbar .btn_reg{
   margin-right: 0 !important;
 }
+.button.is-success {
+  background-color:#7957d5;
+  color: white;
+}
+.button.is-success:hover {
+  background-color:#4928a2;
+  opacity: 150%;
+  color: white;
+}
+.button.is-primary.btn_reg:focus {
+  background-color:#7957d5;
+  color: white;
+}
+.button.is-primary.btn_reg:hover {
+  background-color:#4928a2;
+  opacity: 150%;
+  color: white;
+}
 </style>

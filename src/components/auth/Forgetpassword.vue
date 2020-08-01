@@ -4,7 +4,7 @@
               <div class="columns login_pg">
                 <div class="column is-half img_sec"><img src="./../../assets/reg_log.png" /> </div>
                 <div class="column log_sec is-half">
-                  <h4 class="title">FORGET PASSWORD</h4>
+                  <h4 class="title">FORGOT PASSWORD?</h4>
         <div v-if="error" class="error">{{error.message}}</div>
         <form @submit.prevent="pressed">
             <div class="email">

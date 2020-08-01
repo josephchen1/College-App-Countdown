@@ -8,21 +8,21 @@
         <div v-if="error" class="error">{{error.message}}</div>
         <form @submit.prevent="pressed">
             <div class="email">
-              <b-field label="Email Address">
-                <b-input type="email" required v-model="email" placeholder="email" size="is-medium"> </b-input>
+              <b-field label="Email address">
+                <b-input type="email" required v-model="email" placeholder="Email" size="is-medium"> </b-input>
               </b-field>
             </div>
             <div class="password">
               <b-field label="Password">
-                <b-input type="password" required v-model="password" placeholder="password" size="is-medium" password-reveal> </b-input>
+                <b-input type="password" required v-model="password" placeholder="Password" size="is-medium" password-reveal> </b-input>
               </b-field>
             </div>
 
             <div class="repeatpassword">
-              <b-field label="Repeat Password" :type="{
+              <b-field label="Confirm password" :type="{
                 'is-danger':$v.repeatpassword.$error, 'is-success': (password != '') ?
                 !$v.repeatpassword.$invalid : '' }">
-                <b-input type="password" required v-model.trim="$v.repeatpassword.$model" size="is-medium" placeholder="Repeat password">
+                <b-input type="password" required v-model.trim="$v.repeatpassword.$model" size="is-medium" placeholder="Confirm password">
                 </b-input>
               </b-field>
                 <!--<div class="valid-feedback">Your passwords is identical!</div>
@@ -30,7 +30,7 @@
 <span v-if="!$v.repeatpassword.sameAsPassword">Passwords must be identical.</span>
 </div>-->
             </div>
-            <button type="submit">Register</button>
+            <button class="submit" type="submit">Register</button>
         </form>
                 </div>
     </div>
@@ -140,5 +140,8 @@ h4.title{
 button:hover{
   cursor: pointer;
   background-color: #f5e4e4;
+}
+.submit{
+  margin-top: 30px;
 }
 </style>

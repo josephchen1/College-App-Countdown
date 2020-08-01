@@ -42,7 +42,7 @@ No more messy whiteboards.</p></div>
     border: none;
     background-color: #A6EAFF;
     width: auto;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 500;
     cursor: pointer;
     border-radius: 4px;
