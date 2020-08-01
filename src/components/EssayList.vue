@@ -358,10 +358,12 @@ display: flex;
     padding: 15px 10px;
     max-height: 70vh;
     overflow-y: scroll;
+    padding-bottom: 150px;
 }
 .extra-container + span .essay-item{
   background-color: #EAE8E8;
   padding: 2px 5px;
+  flex-shrink: 0;
 }
 
 .essay-item-label {

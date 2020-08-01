@@ -50,7 +50,9 @@ export default {
   padding: 10px;
   width: max-content;
   border-radius: 0px 0px 16px 16px;
-  border-radius: 8px;;
+  border-radius: 8px;
+  left: 0;
+  width: 100%;
 }
 
 .status-choice {
@@ -80,6 +82,7 @@ export default {
   text-transform: lowercase;
   color: #000;
   margin-bottom: 5px;
+  text-align: center;
 }
 .essay-item-left .status-item.status[data-item="In Progress"],.sub-menu .status-choice a[data-item="In Progress"]{
 background-color: #fcecc0;
