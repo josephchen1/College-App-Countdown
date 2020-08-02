@@ -1,7 +1,7 @@
 <template>
-  <div class="status-item" :data-item="statusTitle(correspondingEssayID)" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
+  <div class="status-item" :data-item="this.statusDictionary[getStatusNumber()]" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
     <span class="item">
-      {{ statusTitle(correspondingEssayID) }}
+      {{ this.statusDictionary[getStatusNumber()] }}
     </span>
     <transition name="fade" appear>
       <div class="sub-menu"
@@ -35,8 +35,8 @@ export default {
     blur () {
       this.isOpen = false
     },
-    statusTitle (correspondingEssayID) {
-      return this.$store.getters.statusTitle(correspondingEssayID)
+    getStatusNumber () {
+      return this.$store.getters.getStatusNumber(this.correspondingEssayID)
     }
 
   }
