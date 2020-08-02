@@ -30,6 +30,7 @@ export default {
   },
   methods: {
     applyDropdownProperty (dropdownKey) {
+      this.$parent.status = dropdownKey
       this.$store.dispatch('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
     },
     blur () {
