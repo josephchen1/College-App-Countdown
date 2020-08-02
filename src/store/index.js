@@ -44,12 +44,12 @@ export default new Vuex.Store({
       state.essays.splice(this.removeEssayIndex, 1)
     },
     finishedEdit (state, essay) {
-      state.essays.splice(this.index, 1, {
+      state.essays[this.index] = {
         id: essay.id,
         title: essay.title,
         status: essay.status,
         editing: false
-      })
+      }
     },
     retrieveEssays (state, essays) {
       state.essays = essays

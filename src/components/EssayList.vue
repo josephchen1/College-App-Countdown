@@ -42,10 +42,7 @@ export default {
     return {
       newEssay: '',
       idForEssay: this.$store.state.essays.length,
-      beforeEditCache: '',
-      currentFilterType: 0,
-      removeEssayIndex: 0,
-      essays: []
+      beforeEditCache: ''
     }
   },
   created () {
