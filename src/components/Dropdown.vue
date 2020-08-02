@@ -30,13 +30,13 @@ export default {
   },
   methods: {
     applyDropdownProperty (dropdownKey) {
-      this.title = this.statusDictionary[dropdownKey]
-      // this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
+      this.$parent.status = dropdownKey
       this.$store.dispatch('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
     },
     blur () {
       this.isOpen = false
     }
+
   }
 }
 </script>
