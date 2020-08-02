@@ -2,7 +2,6 @@
   <div class="essay-item">
     <div class="essay-item-left">
       <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingEssayID="this.id"/>
-      <!-- "Completed" attribute should be reworked later on -->
       <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
         {{ title }}
       </div>
