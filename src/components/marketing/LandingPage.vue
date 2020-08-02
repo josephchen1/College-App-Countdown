@@ -59,6 +59,7 @@ No more messy whiteboards.</p></div>
     padding: 60px 0;
 }
 .section_01{
+    padding-top: 20px;
     padding-bottom: 50px;
     float: left;
     width: 100%;
