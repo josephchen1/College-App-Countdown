@@ -1,7 +1,7 @@
 <template>
-  <div class="status-item" :data-item="title" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
+  <div class="status-item" :data-item="this.statusDictionary[getStatusNumber()]" @mousedown="isOpen = !isOpen" @mouseleave="blur()">
     <span class="item">
-      {{ title }}
+      {{ this.statusDictionary[getStatusNumber()] }}
     </span>
     <transition name="fade" appear>
       <div class="sub-menu"
@@ -30,13 +30,15 @@ export default {
   },
   methods: {
     applyDropdownProperty (dropdownKey) {
-      this.title = this.statusDictionary[dropdownKey]
-      // this.$eventBus.$emit('changeStatus', this.correspondingTaskID, dropdownKey)
       this.$store.dispatch('applyDropdown', { essayID: this.correspondingEssayID, key: dropdownKey })
     },
     blur () {
       this.isOpen = false
+    },
+    getStatusNumber () {
+      return this.$store.getters.getStatusNumber(this.correspondingEssayID)
     }
+
   }
 }
 </script>

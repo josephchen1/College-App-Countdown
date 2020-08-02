@@ -162,6 +162,9 @@ export default new Vuex.Store({
         return state.essays
       }
       return state.essays.filter(essay => essay.status === state.currentFilterType)
+    },
+    getStatusNumber: (state) => (correspondingEssayID) => {
+      return state.essays.find(essay => essay.id === correspondingEssayID).status
     }
   }
 })
