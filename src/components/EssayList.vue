@@ -21,12 +21,10 @@
     <transition-group name="fade" enter-active-class="animated slideInRight" leave-active-class="animated fadeOutRight">
       <essay v-for="(essay, index) in essaysFiltered" :key="essay.id" :essay="essay" :index="index"></essay>
     </transition-group>
-
     <div class="extra-container">
       <div class="count-left">{{ this.$store.getters.remaining }} items left</div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -348,15 +346,21 @@ button {
 .filter-bar button.active:nth-child(5),.filter-bar button:nth-child(5):hover{
     background-color: #c9fccd;
 }
-.extra-container + span {
-    background-color: #e8e8e8cd;
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 15px 10px;
-    max-height: 70vh;
-    overflow-y: scroll;
-    padding-bottom: 150px;
+
+span {
+  padding-top: 20px;
 }
+
+.extra-container + span {
+  background-color: #e8e8e8cd;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 15px 10px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  padding-bottom: 140px;
+}
+
 .extra-container + span .essay-item{
   background-color: #fafafa;
   padding: 3.5px 5px;

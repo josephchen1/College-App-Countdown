@@ -70,6 +70,7 @@ div {
 .navbar .btn_reg{
   margin-right: 0 !important;
 }
+
 .button.is-success {
   background-color:#7957d5;
   color: white;

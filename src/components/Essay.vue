@@ -1,16 +1,16 @@
 <template>
-  <div class="essay-item">
-    <div class="essay-item-left">
-      <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingEssayID="this.id"/>
-      <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
-        {{ title }}
+    <div class="essay-item">
+      <div class="essay-item-left">
+        <Dropdown class="status" :title="this.statusDictionary[status]" :statusDictionary="statusDictionary" :correspondingEssayID="this.id"/>
+        <div v-if="!editing" @dblclick="editEssay()" class="essay-item-label">
+          {{ title }}
+        </div>
+        <input v-else class="essay-item-edit" type="text" v-model="title" @blur="doneEdit()" @keyup.enter="doneEdit()" v-focus/>
       </div>
-      <input v-else class="essay-item-edit" type="text" v-model="title" @blur="doneEdit()" @keyup.enter="doneEdit()" v-focus/>
+      <div class="remove-item" @click="removeEssay(id)">
+        &times;
+      </div>
     </div>
-    <div class="remove-item" @click="removeEssay(id)">
-      &times;
-    </div>
-  </div>
 </template>
 
 <script>

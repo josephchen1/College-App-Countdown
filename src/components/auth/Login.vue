@@ -21,7 +21,7 @@
             <h6 class="reg_txt subtitle"><b-navbar-item tag="router-link" :to="{ name: 'forgetpassword' }" class="for_password">Forget Password?</b-navbar-item></h6>
       </div>
     <div>
-      <h6 class="reg_txt subtitle">Need an account?<br/> Click here to <b-navbar-item tag="router-link" :to="{ name: 'register' }" class="reg_log_btn">Register</b-navbar-item></h6>
+      <h6 class="reg_txt subtitle">Need an account?<br/> <b-navbar-item tag="router-link" :to="{ name: 'register' }" class="reg_log_btn">Click here to Register</b-navbar-item></h6>
     </div>
     <div class='error' v-if='error'>{{error.message}}</div>
         </div>

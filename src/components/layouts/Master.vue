@@ -109,6 +109,9 @@ export default {
       -ms-flex-pack: end !important;
       justify-content: flex-end !important;
   }
+  .navbar span {
+  padding-top: 0px;
+}
   .container{
     padding: 0 15px;
   }
