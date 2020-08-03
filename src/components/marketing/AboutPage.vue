@@ -18,9 +18,11 @@
         <div class="columns is-vcentered">
           <div class="column has-text-centered">
             <h2 class="title is-1">Acknowledgements</h2>
-            <h3>Special thanks to Braden Wong for helping me out with debugging and saving this project from neglect</h3>
-            <br />
-            <p>More thanks to Olivia, Josephine, Swarith, Amy, Caleb, Katherine, and Grace for letting me bounce ideas and designs off them</p>
+            <h3 class="gratitute">A huge round of gratitude to Braden Wong for helping me tackle major bugs and saving this project from neglect</h3>
+            <br>
+            <h3 class="gratitute">Special thanks to Carly and Katherine for helping me with the overall design and annoying bugs</h3>
+            <br>
+            <h3 class="gratitute">More thanks to Olivia, Josephine, Swarith, Amy, Caleb, and Grace for letting me bounce ideas and designs off them</h3>
           </div>
           <div class="column">
             <img src="./../../assets/teamworkphoto.png" />
@@ -32,7 +34,7 @@
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column">
-            <img src="./../../assets/updates.png" />
+            <img src="./../../assets/update3.0.png" />
           </div>
           <div class="column has-text-centered">
             <h1 class="title is-1">Future Plans</h1>
@@ -84,6 +86,11 @@
   clear: left;
   padding: 30px 0;
 }
+
+.gratitute {
+  font-size: 20px;
+}
+
 .section_03 {
   padding-top: 50px;
   padding-bottom: 50px;
