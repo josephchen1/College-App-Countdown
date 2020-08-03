@@ -349,8 +349,8 @@ button {
     background-color: #c9fccd;
 }
 .extra-container + span {
-    background-color: #f2efef;
-display: flex;
+    background-color: #e8e8e8cd;
+    display: flex;
     flex-direction: column-reverse;
     padding: 15px 10px;
     max-height: 70vh;
@@ -358,9 +358,10 @@ display: flex;
     padding-bottom: 150px;
 }
 .extra-container + span .essay-item{
-  background-color: #EAE8E8;
-  padding: 2px 5px;
+  background-color: #fafafa;
+  padding: 3.5px 5px;
   flex-shrink: 0;
+  border-radius: 5px;
 }
 
 .essay-item-label {

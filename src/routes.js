@@ -7,6 +7,7 @@ import Contact from './components/marketing/Contact'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Forgetpassword from './components/auth/Forgetpassword'
+import Support from './components/marketing/Support'
 
 const routes = [
   { path: '/', name: 'home', component: LandingPage },
@@ -17,7 +18,8 @@ const routes = [
   { path: '/forgetpassword', name: 'forgetpassword', component: Forgetpassword },
   { path: '/faq', name: 'faq', component: FAQ },
   { path: '/contact', name: 'contact', component: Contact },
-  { path: '/privacy', name: 'privacy', component: Privacy }
+  { path: '/privacy', name: 'privacy', component: Privacy },
+  { path: '/support', name: 'support', component: Support }
 ]
 
 export default routes
